@@ -19,6 +19,7 @@ namespace XnaGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         static Game1 _singleton_ref = null;
+        int fishx;
 
         public Game1()
         {
@@ -28,8 +29,18 @@ namespace XnaGame
             
             Components.Add(new FrameRateCounter(this));
             AssetManager asm = new AssetManager(this, "Content");
-            asm.AddAsset("pics/fish", "Texture");
-            asm.AddAsset("pics/jellyfish", "Texture");
+            asm.AddAsset("pics/fish", AssetType.Texture);
+            asm.AddAsset("pics/jellyfish", AssetType.Texture);
+            asm.AddAsset("models/Cube", AssetType.Model);
+
+            CameraOrbit cam = new CameraOrbit(this, new Vector3(0, 0, 150), Vector3.Zero);
+            cam.OrbitUpways(80);
+            Components.Add(cam);
+            Components.Add(new ObjectManager(this));
+            Components.Add(new Renderer(this));
+            ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
+            fishx = 0;
+            
         }
 
         /// <summary>
@@ -57,6 +68,9 @@ namespace XnaGame
             // TODO: use this.Content to load your game content here
             IAssetManager asm = GetServiceAs<IAssetManager>();
             asm.LoadAssets();
+            
+            IObjectManager obj = GetServiceAs<IObjectManager>();
+            obj.Init();
         }
 
         /// <summary>
@@ -99,6 +113,11 @@ namespace XnaGame
             Asset fish = asm.GetAsset(0);
             Asset jelly = asm.GetAsset(1);
             Vector2 pos = new Vector2(0, 0);
+            pos.X += fishx;
+            if (fishx < 700)
+                ++fishx;
+            else
+                fishx = 0;
             Vector2 pos2 = new Vector2(400, 300);
             spriteBatch.Begin();
             spriteBatch.Draw(fish.GetAssetAs<Texture2D>(), pos, Color.White);

@@ -7,12 +7,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace XnaGame
 {
-
+    public enum AssetType
+    {
+        Model,
+        Texture
+    }
     public class Asset
     {
         public int id { get; set; }
         public string xnaName { get; set; }
-        public string assetType { get; set; }
+        public AssetType assetType { get; set; }
 
         public Object asset;
 
@@ -21,9 +25,9 @@ namespace XnaGame
 
         public void Build( ContentManager cm ) 
         {
-            if (assetType == "Model")
+            if (assetType == AssetType.Model)
                 asset = cm.Load<Model>(xnaName);
-            else if (assetType == "Texture")
+            else if (assetType == AssetType.Texture)
                 asset = cm.Load<Texture>(xnaName);
         }
 
@@ -54,7 +58,7 @@ namespace XnaGame
             _content.Unload();
         }
 
-        public void AddAsset(string xnaName, string xnaType)
+        public void AddAsset(string xnaName, AssetType xnaType)
         {
             Asset a = new Asset();
             a.xnaName = xnaName;

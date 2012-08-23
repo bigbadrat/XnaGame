@@ -21,7 +21,7 @@ namespace XnaGame
     /// Entity that can be drawn. Note that all the drawing code should be
     /// accesible inside this function because this will be called from the manager.
     /// </summary>
-    public interface IDrawableEntity
+    public interface IDrawableEntity : ISpatialEntity
     {
         void DrawEntity(Matrix view, Matrix projection,
             string effectTechniqueName, GraphicsDevice device);

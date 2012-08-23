@@ -14,6 +14,8 @@ namespace XnaGame
     {
         #region Fields
         public List<SceneEntity> EntityList = new List<SceneEntity>();
+        public List<SceneEntity> UpdatableList = new List<SceneEntity>();
+        public List<SceneEntity> DrawableList = new List<SceneEntity>();
         
         
         #endregion
@@ -99,8 +101,23 @@ namespace XnaGame
 
         public void Init()
         {
+            //Check for leftovers 
+            foreach (SceneEntity e in EntityToBeRemovedList)
+            {
+                EntityList.Remove(e);
+            }
+
+            //Check what i need to init.
             foreach (SceneEntity b in EntityList)
                 b.Init();
+
+            //Check if theres something else waiting to be initialized
+            foreach (SceneEntity e in NewlyCreatedEntityList)
+            {
+                e.Init();
+                EntityList.Add(e);
+            }
+            NewlyCreatedEntityList.Clear();
         }
     }
 

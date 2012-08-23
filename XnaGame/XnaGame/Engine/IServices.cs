@@ -5,7 +5,7 @@ namespace XnaGame
 
     public interface IAssetManager
     {
-        void AddAsset(string xnaName, string xnaType);
+        void AddAsset(string xnaName, AssetType xnaType);
         Asset GetAsset(string name);
         Asset GetAsset(int id);
         void LoadAssets();

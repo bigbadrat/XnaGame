@@ -10,9 +10,9 @@ using Microsoft.Xna.Framework.Input;
 #endregion
 
 
-namespace XNATactics
+namespace XnaGame
 {
-    public class COrbitCamera : GameComponent,ICamera
+    public class CameraOrbit : GameComponent,ICamera
     {
 
         float speed = 1.0f;
@@ -26,7 +26,7 @@ namespace XNATactics
         private Vector3 origPosition;
         public bool CanMove { get; set; }
 
-        public COrbitCamera(XNATacticsGame game, Vector3 pos, Vector3 look)
+        public CameraOrbit(Game game, Vector3 pos, Vector3 look)
             : base(game)
         {
             Position = pos;

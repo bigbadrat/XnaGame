@@ -8,16 +8,16 @@ using Microsoft.Xna.Framework.Graphics;
 #endregion
 
 
-namespace XNATactics
+namespace XnaGame
 {
-    public class CStaticCamera : GameComponent,ICamera
+    public class CameraStatic : GameComponent,ICamera
     {
         public Vector3 Position { get; set; }
         public Vector3 LookAt { get; set; }
         public Matrix ViewMatrix { get; set; }
         public Matrix ProjectionMatrix { get; set; }
 
-        public CStaticCamera(XNATacticsGame game, Vector3 pos, Vector3 look)
+        public CameraStatic(Game game, Vector3 pos, Vector3 look)
             : base(game)
         {
             Position = pos;

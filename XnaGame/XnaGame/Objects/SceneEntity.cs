@@ -28,9 +28,17 @@ namespace XnaGame
         public int Id;
         protected IObjectManager EntityManager;
 
-        public SceneEntity() { RegisterWithManager(); Name = "unnamed"+Id; }
+        public SceneEntity() 
+        { 
+            RegisterWithManager(); 
+            Name = "unnamed"+Id; 
+        }
 
-        public SceneEntity(string entname) { Name = entname; RegisterWithManager(); }
+        public SceneEntity(string entname) 
+        { 
+            Name = entname; 
+            RegisterWithManager(); 
+        }
 
         private void RegisterWithManager()
         {
@@ -180,6 +188,12 @@ namespace XnaGame
 
     }
 
+    public class UpdatableEntity : SceneEntity
+    {
+        public virtual void Update(GameTime gameTime)
+        {
+        }
+    }
     /// <summary>
     /// Basic features for an entity to have a position in space.
     /// </summary>    
@@ -255,7 +269,7 @@ namespace XnaGame
             Position = pos;            
         }
 
-        public SpatialEntity() { }
+        public SpatialEntity(): base() { }
 
     }
 
