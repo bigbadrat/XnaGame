@@ -42,7 +42,7 @@ namespace XnaGame
 
         private void RegisterWithManager()
         {
-            IObjectManager man = Game1.GetService<IObjectManager>();
+            IObjectManager man = MyGame.GetService<IObjectManager>();
             man.Add(this);
             EntityManager = man;
             Id = IdCounter++; //get a unique id for this object

@@ -39,4 +39,9 @@ namespace XnaGame
         void AddPostProcess(string effectName);
         void RemovePostProcess(string effectName);
     }
+
+    public interface IInputHandler
+    {
+        void SuscribeToInput(InputEventHandler inputhandler);
+    }
 }

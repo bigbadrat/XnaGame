@@ -74,11 +74,11 @@ namespace XnaGame
         public override void Draw(GameTime gameTime)
         {            
             //Get camera information
-            ICamera camera = Game1.GetService<ICamera>();
+            ICamera camera = MyGame.GetService<ICamera>();
             Matrix view = camera.ViewMatrix;
             Matrix proj = camera.ProjectionMatrix;
             //Signal the renderer
-            IRenderer renderer = Game1.GetService<IRenderer>();
+            IRenderer renderer = MyGame.GetService<IRenderer>();
             renderer.BeginSceneRendering();
 
             //Start drawing

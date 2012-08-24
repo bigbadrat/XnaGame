@@ -30,7 +30,7 @@ namespace XnaGame
 
         public override void Init()
         {
-            Asset a = Game1.GetService<IAssetManager>().GetAsset(ModelName);
+            Asset a = MyGame.GetService<IAssetManager>().GetAsset(ModelName);
             Model3D = a.GetAssetAs<Model>();
             //if (Model3D == null)
             //    Abyss.Log("error creating" + ModelName);

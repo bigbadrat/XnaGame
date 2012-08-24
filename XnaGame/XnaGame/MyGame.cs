@@ -14,14 +14,15 @@ namespace XnaGame
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class MyGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        static Game1 _singleton_ref = null;
+        static MyGame _singleton_ref = null;
         int fishx;
+        Vector2 jellypos;
 
-        public Game1()
+        public MyGame()
         {
             _singleton_ref = this;
             graphics = new GraphicsDeviceManager(this);
@@ -38,8 +39,11 @@ namespace XnaGame
             Components.Add(cam);
             Components.Add(new ObjectManager(this));
             Components.Add(new Renderer(this));
+            Components.Add(new InputManager(this));
             ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
             fishx = 0;
+            jellypos = new Vector2(400, 400);
+            GetService<IInputHandler>().SuscribeToInput(UpdateJellyfish);
             
         }
 
@@ -118,14 +122,26 @@ namespace XnaGame
                 ++fishx;
             else
                 fishx = 0;
-            Vector2 pos2 = new Vector2(400, 300);
+            
             spriteBatch.Begin();
             spriteBatch.Draw(fish.GetAssetAs<Texture2D>(), pos, Color.White);
-            spriteBatch.Draw(jelly.GetAssetAs<Texture2D>(), pos2, Color.White);
+            spriteBatch.Draw(jelly.GetAssetAs<Texture2D>(), jellypos, Color.White);
             spriteBatch.End();
         }
+
+        public void UpdateJellyfish(InputEventArgs input)
+        {
+            if (input.x > 0)
+                jellypos.X += 5;
+            else if (input.x < 0)
+                jellypos.X -= 5;
+            if (input.y > 0)
+                jellypos.Y += 5;
+            else if (input.y < 0)
+                jellypos.Y -= 5;
+        }
         
-        static public Game1 GetGame()
+        static public MyGame GetGame()
         {
             return _singleton_ref;
         }

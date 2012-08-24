@@ -15,7 +15,7 @@ namespace XnaGame
 
         protected override void InitVertices()
         {
-            GraphicsDevice device = Game1.GetGame().GraphicsDevice;
+            GraphicsDevice device = MyGame.GetGame().GraphicsDevice;
 
             //m_pVertDeclaration = new VertexDeclaration(VertexPositionColor.VertexDeclaration);
             vertices = new VertexPositionColor[4];
@@ -29,7 +29,7 @@ namespace XnaGame
  
         protected override void  DrawPrimitives()
         {
-            GraphicsDevice device = Game1.GetGame().GraphicsDevice;
+            GraphicsDevice device = MyGame.GetGame().GraphicsDevice;
             device.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleStrip, vertices, 0, 2);
         }
         
