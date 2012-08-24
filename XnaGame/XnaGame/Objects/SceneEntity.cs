@@ -188,7 +188,7 @@ namespace XnaGame
 
     }
 
-    public class UpdatableEntity : SceneEntity
+    public class UpdatableEntity : SceneEntity, IUpdatableEntity
     {
         public virtual void Update(GameTime gameTime)
         {

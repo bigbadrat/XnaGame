@@ -14,8 +14,8 @@ namespace XnaGame
     {
         #region Fields
         public List<SceneEntity> EntityList = new List<SceneEntity>();
-        public List<SceneEntity> UpdatableList = new List<SceneEntity>();
-        public List<SceneEntity> DrawableList = new List<SceneEntity>();
+        public List<IUpdatableEntity> UpdatableList = new List<IUpdatableEntity>();
+        public List<IDrawableEntity> DrawableList = new List<IDrawableEntity>();
         
         
         #endregion
@@ -53,22 +53,18 @@ namespace XnaGame
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+            //Remove any entity scheduled to be removed
+            RemoveCorpses();
+
+            //Add any entity to lists
+            AddNewborns();
+
             foreach (SceneEntity e in EntityList)
             {
                 if (e is IUpdatableEntity)
                     ((IUpdatableEntity)e).Update(gameTime);
-            }
-            foreach (SceneEntity e in EntityToBeRemovedList)
-            {
-                EntityList.Remove(e);
-            }
-            foreach (SceneEntity e in NewlyCreatedEntityList)
-            {
-                EntityList.Add(e);
-            }
-            NewlyCreatedEntityList.Clear();
-
-            base.Update(gameTime);
+            }   
         }
 
         public override void Draw(GameTime gameTime)
@@ -84,13 +80,9 @@ namespace XnaGame
             //Start drawing
             GraphicsDevice.Clear(Color.Black);
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            foreach (SceneEntity e in EntityList)
+            foreach (IDrawableEntity e in DrawableList)
             {
-                if (e is IDrawableEntity )
-                {
-                    IDrawableEntity m = (IDrawableEntity)e;
-                    m.DrawEntity(view, proj, "whatever", Game.GraphicsDevice);
-                }
+                e.DrawEntity(view, proj, "whatever", Game.GraphicsDevice);
             }
 
             base.Draw(gameTime);
@@ -102,20 +94,38 @@ namespace XnaGame
         public void Init()
         {
             //Check for leftovers 
-            foreach (SceneEntity e in EntityToBeRemovedList)
-            {
-                EntityList.Remove(e);
-            }
+            RemoveCorpses();
+
+            //Check if theres something else waiting to be initialized
+            AddNewborns();
 
             //Check what i need to init.
             foreach (SceneEntity b in EntityList)
                 b.Init();
+        }
 
-            //Check if theres something else waiting to be initialized
+        private void RemoveCorpses()
+        {
+            foreach (SceneEntity e in EntityToBeRemovedList)
+            {
+                EntityList.Remove(e);
+                if (e is IDrawableEntity)
+                    DrawableList.Remove((IDrawableEntity)e);
+                if (e is IUpdatableEntity)
+                    UpdatableList.Remove((IUpdatableEntity)e);
+            }
+        }
+        
+        private void AddNewborns()
+        {
             foreach (SceneEntity e in NewlyCreatedEntityList)
             {
                 e.Init();
                 EntityList.Add(e);
+                if (e is IDrawableEntity)
+                    DrawableList.Add((IDrawableEntity)e);
+                if (e is IUpdatableEntity)
+                    UpdatableList.Add((IUpdatableEntity)e);
             }
             NewlyCreatedEntityList.Clear();
         }
