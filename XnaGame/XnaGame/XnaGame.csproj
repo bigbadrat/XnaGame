@@ -107,7 +107,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\BaseBehaviors.cs" />
+    <Compile Include="Behaviors\CollisionBehaviors.cs" />
+    <Compile Include="Behaviors\OscillatingMovement.cs" />
+    <Compile Include="Behaviors\SimpleMovement.cs" />
+    <Compile Include="Behaviors\TimeBehaviors.cs" />
     <Compile Include="Engine\Assets.cs" />
+    <Compile Include="Engine\Input.cs" />
+    <Compile Include="Engine\InputState.cs" />
     <Compile Include="Engine\IServices.cs" />
     <Compile Include="Engine\ObjectManager.cs" />
     <Compile Include="Objects\CustomModelEntity.cs" />
@@ -117,7 +124,7 @@
     <Compile Include="Objects\SceneEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="MyGame.cs" />
     <Compile Include="Render\CameraOrbit.cs" />
     <Compile Include="Render\CameraStatic.cs" />
     <Compile Include="Render\FrameRateCounter.cs" />

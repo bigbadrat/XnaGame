@@ -67,17 +67,17 @@ namespace XnaGame
         /// <summary>
         /// Behavior event management
         /// </summary>
-        //List<IBehavior> behaviors = new List<IBehavior>();
+        protected List<IBehavior> _behaviors = new List<IBehavior>();
 
-        //public void AddBehavior(IBehavior behav)
-        //{
-        //    behaviors.Add(behav);
-        //}
-        
-        //public virtual void RemoveAllBehaviors()
-        //{
-        //    behaviors.Clear();
-        //}
+        public void AddBehavior(IBehavior behav)
+        {
+            _behaviors.Add(behav);
+        }
+
+        public virtual void RemoveAllBehaviors()
+        {
+            _behaviors.Clear();
+        }
         #endregion
 
         //#region EventHandling functions
@@ -163,37 +163,38 @@ namespace XnaGame
         /// Basic Update for all the entities. Basically handle behaviors
         /// </summary>
         /// <param name="gameTime"></param>
-        //public virtual void Update(GameTime gameTime)
-        //{
-            //Update each behavior
-            //foreach (IBehavior beh in behaviors)
-            //{
-            //    beh.Update(gameTime);
-            //}
 
-            ////Remove completed behavior
-            //for (int i = 0; i < behaviors.Count(); )
-            //{
-            //    if (behaviors[i].IsComplete())
-            //    {
-            //        behaviors.RemoveAt(i);                
-            //    }
-            //    else
-            //    {
-            //        ++i;
-            //    }
-            //}
-
-        //}
 
     }
 
     public class UpdatableEntity : SceneEntity, IUpdatableEntity
     {
+
         public virtual void Update(GameTime gameTime)
         {
+            //Update each behavior
+            foreach (IBehavior beh in _behaviors)
+            {
+                beh.Update(gameTime);
+            }
+
+            //Remove completed behavior
+            for (int i = 0; i < _behaviors.Count(); )
+            {
+                if (_behaviors[i].IsComplete())
+                {
+                    _behaviors.RemoveAt(i);
+                }
+                else
+                {
+                    ++i;
+                }
+            }
+
         }
+
     }
+
     /// <summary>
     /// Basic features for an entity to have a position in space.
     /// </summary>    
