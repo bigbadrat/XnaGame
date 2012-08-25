@@ -77,6 +77,8 @@ namespace XnaGame
             IRenderer renderer = MyGame.GetService<IRenderer>();
             renderer.BeginSceneRendering();
 
+            Game.GraphicsDevice.Clear(Color.Black);
+
             //Start drawing
             GraphicsDevice.Clear(Color.Black);
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;

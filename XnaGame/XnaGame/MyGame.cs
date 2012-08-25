@@ -36,7 +36,6 @@ namespace XnaGame
             Components.Add(new SpriteManager(this));
             Components.Add(new Renderer(this));
             Components.Add(new InputManager(this));
-
             
             fishx = 0;
             GetService<IInputHandler>().SuscribeToInput(UpdateJellyfish);
@@ -68,16 +67,16 @@ namespace XnaGame
             asm.AddAsset("models/Cube", AssetType.Model);
             asm.LoadAssets();
 
-            //ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
-            SpriteBasic sb1 = new SpriteBasic("jelly","pics/jellyfish");
+            ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
             SpriteBasic sb2 = new SpriteBasic("fish", "pics/fish");
-            sb2.Position = new Vector2(400, 50);
+            SpriteBasic sb1 = new SpriteBasic("jelly", "pics/jellyfish");            
+            sb2.Position = new Vector2(500, 50);
             sb1.Position = new Vector2(100, 100);
             sb1.Layer = 100;
             sb2.Layer = 10;
 
-            //IObjectManager obj = GetServiceAs<IObjectManager>();
-            //obj.Init();
+            IObjectManager obj = GetServiceAs<IObjectManager>();
+            obj.Init();
         }
 
         /// <summary>
@@ -110,6 +109,9 @@ namespace XnaGame
                 ++fishx;
             else
                 fishx = 0;
+            SpriteBasic fish = GetServiceAs<ISpriteManager>().GetSprite("fish");
+            fish.Position = pos;
+
         }
 
         /// <summary>
@@ -126,6 +128,8 @@ namespace XnaGame
         public void UpdateJellyfish(InputEventArgs input)
         {
             SpriteBasic jelly = GetServiceAs<ISpriteManager>().GetSprite("jelly");
+            if (jelly == null)
+                return;
             Vector2 jellypos = jelly.Position;
 
             if (input.x > 0)

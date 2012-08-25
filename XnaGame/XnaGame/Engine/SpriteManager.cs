@@ -40,7 +40,7 @@ namespace XnaGame
             base.Draw(gameTime);
             IRenderer render = MyGame.GetService<IRenderer>();
             render.BeginSpriteRendering();
-            GraphicsDevice.Clear(Color.Wheat);
+            GraphicsDevice.Clear(new Color(0, 0, 0, 0));
             _spritebatch.Begin();
             foreach (SpriteBasic s in _sprites)
             {
