@@ -41,7 +41,7 @@ namespace XnaGame
             IRenderer render = MyGame.GetService<IRenderer>();
             render.BeginSpriteRendering();
             GraphicsDevice.Clear(new Color(0, 0, 0, 0));
-            _spritebatch.Begin();
+            _spritebatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             foreach (SpriteBasic s in _sprites)
             {
                 s.Draw(_spritebatch);

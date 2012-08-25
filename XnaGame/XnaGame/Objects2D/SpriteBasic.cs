@@ -57,10 +57,15 @@ namespace XnaGame
             set { _pos = value; }
         }
 
+        /// <summary>
+        /// Layer to draw the sprite. Using a 0-255 scale. The higher the layer
+        /// the later this sprite will be drawn, resulting in the sprite drawn 
+        /// on TOP of lower level layers
+        /// </summary>
         public float Layer
         {
             get { return _z; }
-            set { _z = value*1.0f/255; }
+            set { _z = (255-value)*1.0f/255; }
         }
 
                   

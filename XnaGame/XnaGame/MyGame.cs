@@ -68,15 +68,13 @@ namespace XnaGame
             asm.LoadAssets();
 
             ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
-            SpriteBasic sb2 = new SpriteBasic("fish", "pics/fish");
-            SpriteBasic sb1 = new SpriteBasic("jelly", "pics/jellyfish");            
+            SpriteBasic sb1 = new SpriteBasic("fish", "pics/fish");
+            SpriteBasic sb2 = new SpriteBasic("jelly", "pics/jellyfish");            
             sb2.Position = new Vector2(500, 50);
             sb1.Position = new Vector2(100, 100);
-            sb1.Layer = 100;
-            sb2.Layer = 10;
+            sb1.Layer = 10;
+            sb2.Layer = 100;
 
-            IObjectManager obj = GetServiceAs<IObjectManager>();
-            obj.Init();
         }
 
         /// <summary>

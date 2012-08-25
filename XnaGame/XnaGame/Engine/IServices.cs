@@ -27,7 +27,6 @@ namespace XnaGame
         void RemoveAll();
         SceneEntity GetEntity(int i);
         SceneEntity GetEntity(string name);
-        void Init();
     }
 
     public interface ISpriteManager
