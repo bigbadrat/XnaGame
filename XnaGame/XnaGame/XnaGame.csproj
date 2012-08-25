@@ -117,6 +117,8 @@
     <Compile Include="Engine\InputState.cs" />
     <Compile Include="Engine\IServices.cs" />
     <Compile Include="Engine\ObjectManager.cs" />
+    <Compile Include="Objects2D\SpriteBasic.cs" />
+    <Compile Include="Engine\SpriteManager.cs" />
     <Compile Include="Objects\CustomModelEntity.cs" />
     <Compile Include="Objects\IObjects.cs" />
     <Compile Include="Objects\ModelEntity.cs" />

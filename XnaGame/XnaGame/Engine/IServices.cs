@@ -30,10 +30,19 @@ namespace XnaGame
         void Init();
     }
 
+    public interface ISpriteManager
+    {
+        void AddSprite(SpriteBasic sb);
+        SpriteBasic GetSprite(int i);
+        SpriteBasic GetSprite(string name);
+    }
+
     public interface IRenderer
     {
         void BeginSceneRendering();
         void EndSceneRendering();
+        void BeginSpriteRendering();
+        void EndSpriteRendering();
         void BeginGuiRendering();
         void EndGuiRendering();
         void AddPostProcess(string effectName);

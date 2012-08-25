@@ -21,8 +21,10 @@ namespace XnaGame
         public List<string> effectList;
 
         public RenderTarget2D sceneTarget;
-        public RenderTarget2D guiTarget;
+        public RenderTarget2D spriteTarget;
+        public RenderTarget2D guiTarget;        
         public Texture2D sceneTexture;
+        public Texture2D spriteTexture;
         public Texture2D guiTexture;
 
         SpriteBatch screenDrawer;
@@ -54,6 +56,7 @@ namespace XnaGame
 
             PresentationParameters pp = GraphicsDevice.PresentationParameters;
             sceneTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, false, pp.BackBufferFormat,DepthFormat.Depth24Stencil8);
+            spriteTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, false, pp.BackBufferFormat, DepthFormat.Depth24Stencil8);
             guiTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight/*, false, pp.BackBufferFormat, pp.DepthStencilFormat*/);
             postProcessTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight/*, false, pp.BackBufferFormat, pp.DepthStencilFormat*/);
 
@@ -93,6 +96,7 @@ namespace XnaGame
             device.SetRenderTarget(null);
 
             sceneTexture = sceneTarget;
+            spriteTexture = spriteTarget;
             guiTexture = guiTarget;
 
             PostProcessScene(effectList);
@@ -100,6 +104,7 @@ namespace XnaGame
             screenDrawer.Begin();
 
             screenDrawer.Draw(sceneTexture, rect, Color.White);
+            screenDrawer.Draw(spriteTexture, rect, Color.White);
             screenDrawer.Draw(guiTexture, rect, Color.White);
 
             screenDrawer.End();
@@ -145,6 +150,16 @@ namespace XnaGame
         {
             Game.GraphicsDevice.SetRenderTarget(null);
             sceneTexture = sceneTarget;
+        }
+        public void BeginSpriteRendering()
+        {
+            Game.GraphicsDevice.SetRenderTarget(spriteTarget);
+            Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+        }
+        public void EndSpriteRendering()
+        {
+            Game.GraphicsDevice.SetRenderTarget(null);
+            spriteTexture = sceneTarget;
         }
         public void BeginGuiRendering()
         {

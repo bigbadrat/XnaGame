@@ -17,32 +17,28 @@ namespace XnaGame
     public class MyGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
         static MyGame _singleton_ref = null;
-        int fishx;
-        Vector2 jellypos;
+        int fishx;        
 
         public MyGame()
         {
             _singleton_ref = this;
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            Content.RootDirectory = "Content";            
             
-            Components.Add(new FrameRateCounter(this));
             AssetManager asm = new AssetManager(this, "Content");
-            asm.AddAsset("pics/fish", AssetType.Texture);
-            asm.AddAsset("pics/jellyfish", AssetType.Texture);
-            asm.AddAsset("models/Cube", AssetType.Model);
 
             CameraOrbit cam = new CameraOrbit(this, new Vector3(0, 0, 150), Vector3.Zero);
             cam.OrbitUpways(80);
             Components.Add(cam);
+            Components.Add(new FrameRateCounter(this));
             Components.Add(new ObjectManager(this));
+            Components.Add(new SpriteManager(this));
             Components.Add(new Renderer(this));
             Components.Add(new InputManager(this));
-            ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
+
+            
             fishx = 0;
-            jellypos = new Vector2(400, 400);
             GetService<IInputHandler>().SuscribeToInput(UpdateJellyfish);
             
         }
@@ -66,15 +62,22 @@ namespace XnaGame
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
             IAssetManager asm = GetServiceAs<IAssetManager>();
+            asm.AddAsset("pics/fish", AssetType.Texture);
+            asm.AddAsset("pics/jellyfish", AssetType.Texture);
+            asm.AddAsset("models/Cube", AssetType.Model);
             asm.LoadAssets();
-            
-            IObjectManager obj = GetServiceAs<IObjectManager>();
-            obj.Init();
+
+            //ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
+            SpriteBasic sb1 = new SpriteBasic("jelly","pics/jellyfish");
+            SpriteBasic sb2 = new SpriteBasic("fish", "pics/fish");
+            sb2.Position = new Vector2(400, 50);
+            sb1.Position = new Vector2(100, 100);
+            sb1.Layer = 100;
+            sb2.Layer = 10;
+
+            //IObjectManager obj = GetServiceAs<IObjectManager>();
+            //obj.Init();
         }
 
         /// <summary>
@@ -100,6 +103,13 @@ namespace XnaGame
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+
+            Vector2 pos = new Vector2(0, 0);
+            pos.X += fishx;
+            if (fishx < 700)
+                ++fishx;
+            else
+                fishx = 0;
         }
 
         /// <summary>
@@ -108,29 +118,16 @@ namespace XnaGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
-            IAssetManager asm = GetServiceAs<IAssetManager>();
-            Asset fish = asm.GetAsset(0);
-            Asset jelly = asm.GetAsset(1);
-            Vector2 pos = new Vector2(0, 0);
-            pos.X += fishx;
-            if (fishx < 700)
-                ++fishx;
-            else
-                fishx = 0;
-            
-            spriteBatch.Begin();
-            spriteBatch.Draw(fish.GetAssetAs<Texture2D>(), pos, Color.White);
-            spriteBatch.Draw(jelly.GetAssetAs<Texture2D>(), jellypos, Color.White);
-            spriteBatch.End();
         }
 
         public void UpdateJellyfish(InputEventArgs input)
         {
+            SpriteBasic jelly = GetServiceAs<ISpriteManager>().GetSprite("jelly");
+            Vector2 jellypos = jelly.Position;
+
             if (input.x > 0)
                 jellypos.X += 5;
             else if (input.x < 0)
@@ -139,6 +136,10 @@ namespace XnaGame
                 jellypos.Y += 5;
             else if (input.y < 0)
                 jellypos.Y -= 5;
+
+            
+            jelly.Position = jellypos;
+
         }
         
         static public MyGame GetGame()
