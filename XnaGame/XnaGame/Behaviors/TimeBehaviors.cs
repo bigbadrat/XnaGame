@@ -11,11 +11,11 @@ namespace XnaGame
     /// </summary>
     public class BehaviorTimer : BehaviorBase
     {
-        public SceneEntity pOwner;
+        public GameEntity pOwner;
         float m_fElapsed;
         float m_fTimeTarget;
 
-        public BehaviorTimer(SceneEntity o, float time)
+        public BehaviorTimer(GameEntity o, float time)
             : base(o)
         {
             pOwner = o;
@@ -23,7 +23,7 @@ namespace XnaGame
             m_fTimeTarget = time;
         }
 
-        protected override void RegisterBehaviorEvents(SceneEntity b)
+        protected override void RegisterBehaviorEvents(GameEntity b)
         {
             //b.RegisterEvent(AbyssEventType.EVT_Timer);
         }
@@ -49,14 +49,14 @@ namespace XnaGame
     {
         public delegate void DelayedFunction();
 
-        public SceneEntity pOwner;
+        public GameEntity pOwner;
         float m_fElapsed;
         float m_fTimeTarget;
         DelayedFunction m_pFunction;
         bool m_bLooping;
         bool m_bCompleted;
 
-        public BehaviorDelayedCall(SceneEntity o, float time, bool loop, DelayedFunction f)
+        public BehaviorDelayedCall(GameEntity o, float time, bool loop, DelayedFunction f)
             : base(o)
         {
             pOwner = o;

@@ -64,12 +64,14 @@ namespace XnaGame
             IAssetManager asm = GetServiceAs<IAssetManager>();
             asm.AddAsset("pics/fish", AssetType.Texture);
             asm.AddAsset("pics/jellyfish", AssetType.Texture);
+            asm.AddAsset("sprites/plus", AssetType.Texture);
             asm.AddAsset("models/Cube", AssetType.Model);
             asm.LoadAssets();
 
             ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
             SpriteBasic sb1 = new SpriteBasic("fish", "pics/fish");
-            SpriteBasic sb2 = new SpriteBasic("jelly", "pics/jellyfish");            
+            SpriteBasic sb2 = new SpriteBasic("jelly", "pics/jellyfish");
+            SpriteGridSheet ss = new SpriteGridSheet("plus", "sprites/plus", new Vector2(6, 4));
             sb2.Position = new Vector2(500, 50);
             sb1.Position = new Vector2(100, 100);
             sb1.Layer = 10;

@@ -20,7 +20,7 @@ namespace XnaGame
     /// location since we could be talking of just logical elements.
     /// Also BaseEntity provides the support for the event structure.
     /// </summary>
-    public class SceneEntity
+    public class GameEntity
     {
         public string Name { get; set; }
 
@@ -28,13 +28,13 @@ namespace XnaGame
         public int Id;
         protected IObjectManager EntityManager;
 
-        public SceneEntity() 
+        public GameEntity() 
         { 
             RegisterWithManager(); 
-            Name = "unnamed"+Id; 
+            Name = "ent_"+Id; 
         }
 
-        public SceneEntity(string entname) 
+        public GameEntity(string entname) 
         { 
             Name = entname; 
             RegisterWithManager(); 
@@ -167,7 +167,7 @@ namespace XnaGame
 
     }
 
-    public class UpdatableEntity : SceneEntity, IUpdatableEntity
+    public class UpdatableEntity : GameEntity, IUpdatableEntity
     {
 
         public virtual void Update(GameTime gameTime)
@@ -198,7 +198,7 @@ namespace XnaGame
     /// <summary>
     /// Basic features for an entity to have a position in space.
     /// </summary>    
-    public class SpatialEntity : SceneEntity, ISpatialEntity
+    public class SpatialEntity : GameEntity, ISpatialEntity
     {
         /// <summary>
         /// Position of the entity. Note that when setting the position, the 

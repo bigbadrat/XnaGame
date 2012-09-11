@@ -9,12 +9,12 @@ namespace XnaGame
 {
     public class SpriteBasic
     {
-        string _name;
-        Texture2D _tex;
-        Vector2 _pos;
-        Color _color;
-        int _id;
-        float _z;
+        protected string _name;
+        protected Texture2D _tex;
+        protected Vector2 _pos;
+        protected Color _color;
+        protected int _id;
+        protected float _z;
 
         public SpriteBasic(string spriteName, string assetName)
         {
@@ -29,7 +29,7 @@ namespace XnaGame
             man.AddSprite(this);
         }
 
-        public void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb)
         {            
             sb.Draw(_tex, _pos, null,_color, 0, Vector2.Zero, 1, SpriteEffects.None,_z);
         }

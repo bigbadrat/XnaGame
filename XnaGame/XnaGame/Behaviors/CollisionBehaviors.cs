@@ -22,7 +22,7 @@ namespace XnaGame
             bActive = true;
         }
 
-        protected override void RegisterBehaviorEvents(SceneEntity b)
+        protected override void RegisterBehaviorEvents(GameEntity b)
         {
             //b.RegisterEvent(AbyssEventType.EVT_Touch);
         }

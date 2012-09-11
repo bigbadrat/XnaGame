@@ -22,11 +22,11 @@ namespace XnaGame
 
     public interface IObjectManager
     {
-        void Add(SceneEntity ent);
-        void Remove(SceneEntity ent);
+        void Add(GameEntity ent);
+        void Remove(GameEntity ent);
         void RemoveAll();
-        SceneEntity GetEntity(int i);
-        SceneEntity GetEntity(string name);
+        GameEntity GetEntity(int i);
+        GameEntity GetEntity(string name);
     }
 
     public interface ISpriteManager

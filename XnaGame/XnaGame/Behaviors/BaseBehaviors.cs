@@ -17,7 +17,7 @@ namespace XnaGame
     public class BehaviorBase : IBehavior
     {
 
-        public BehaviorBase(SceneEntity b)
+        public BehaviorBase(GameEntity b)
         {           
             b.AddBehavior(this);
             RegisterBehaviorEvents(b);
@@ -26,7 +26,7 @@ namespace XnaGame
         /// <summary>
         /// Here we should register all events produced by this event
         /// </summary>
-        protected virtual void RegisterBehaviorEvents(SceneEntity b) { }
+        protected virtual void RegisterBehaviorEvents(GameEntity b) { }
 
         /// <summary>
         /// Any time based update should be placed here.

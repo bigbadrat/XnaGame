@@ -13,15 +13,15 @@ namespace XnaGame
     public class ObjectManager: DrawableGameComponent, IObjectManager
     {
         #region Fields
-        List<SceneEntity> _entity_list = new List<SceneEntity>();
-        Dictionary<int, SceneEntity> _entity_id_index = new Dictionary<int, SceneEntity>();
-        Dictionary<string, SceneEntity> _entity_name_index = new Dictionary<string, SceneEntity>();
+        List<GameEntity> _entity_list = new List<GameEntity>();
+        Dictionary<int, GameEntity> _entity_id_index = new Dictionary<int, GameEntity>();
+        Dictionary<string, GameEntity> _entity_name_index = new Dictionary<string, GameEntity>();
 
         List<IUpdatableEntity> _updatable_list = new List<IUpdatableEntity>();
         List<IDrawableEntity> _drawable_list = new List<IDrawableEntity>();
 
-        List<SceneEntity> EntityToBeRemovedList = new List<SceneEntity>();
-        List<SceneEntity> NewlyCreatedEntityList = new List<SceneEntity>();
+        List<GameEntity> EntityToBeRemovedList = new List<GameEntity>();
+        List<GameEntity> NewlyCreatedEntityList = new List<GameEntity>();
 
         #endregion
 
@@ -36,22 +36,35 @@ namespace XnaGame
 
         #region IEntityManager Interface methods
 
-        public void Add(SceneEntity ent) { NewlyCreatedEntityList.Add(ent); }
-        public void Remove(SceneEntity ent) { EntityToBeRemovedList.Add(ent); }
-        public void RemoveAll() { _entity_list.Clear(); }
-        
-        public SceneEntity GetEntity(int i)
+        public void Add(GameEntity ent)
         {
-            SceneEntity val = null;
-            _entity_id_index.TryGetValue(i, out val);
-            return val;
+            NewlyCreatedEntityList.Add(ent);
         }
 
-        public SceneEntity GetEntity(string name)
+        public void Remove(GameEntity ent)
         {
-            SceneEntity val = null;
-            _entity_name_index.TryGetValue(name, out val);
-            return val;
+            EntityToBeRemovedList.Add(ent);
+        }
+
+        public void RemoveAll()
+        {
+            _entity_list.Clear();
+        }
+        
+        public GameEntity GetEntity(int i)
+        {
+            GameEntity val = null;
+            if ( _entity_id_index.TryGetValue(i, out val) )
+                return val;
+            return null;
+        }
+
+        public GameEntity GetEntity(string name)
+        {
+            GameEntity val = null;
+            if ( _entity_name_index.TryGetValue(name, out val) )
+                return val;
+            return null;
         }
         
         #endregion
@@ -66,11 +79,10 @@ namespace XnaGame
             //Add any entity to lists
             AddNewborns();
 
-            foreach (SceneEntity e in _entity_list)
+            foreach (IUpdatableEntity e in _updatable_list)
             {
-                if (e is IUpdatableEntity)
-                    ((IUpdatableEntity)e).Update(gameTime);
-            }   
+                e.Update(gameTime);
+            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -101,7 +113,7 @@ namespace XnaGame
 
         private void RemoveCorpses()
         {
-            foreach (SceneEntity e in EntityToBeRemovedList)
+            foreach (GameEntity e in EntityToBeRemovedList)
             {
                 _entity_list.Remove(e);
                 if (e is IDrawableEntity)
@@ -115,7 +127,7 @@ namespace XnaGame
         
         private void AddNewborns()
         {
-            foreach (SceneEntity e in NewlyCreatedEntityList)
+            foreach (GameEntity e in NewlyCreatedEntityList)
             {
                 e.Init();
                 _entity_list.Add(e);

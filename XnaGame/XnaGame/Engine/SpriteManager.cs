@@ -35,6 +35,16 @@ namespace XnaGame
             
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            foreach (SpriteBasic s in _sprites)
+            {
+                if (s is SpriteGridSheet)
+                    ((SpriteGridSheet)s).Update(gameTime);
+            }
+        }
+
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);

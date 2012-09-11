@@ -124,7 +124,7 @@ namespace XnaGame
             arrived = false;
         }
 
-        protected override void RegisterBehaviorEvents(SceneEntity b)
+        protected override void RegisterBehaviorEvents(GameEntity b)
         {
             //b.RegisterEvent(AbyssEventType.EVT_GoalReached);
         }
@@ -234,7 +234,7 @@ namespace XnaGame
             m_bFlag = true;
         }
 
-        protected override void RegisterBehaviorEvents(SceneEntity b)
+        protected override void RegisterBehaviorEvents(GameEntity b)
         {
             //b.RegisterEvent(AbyssEventType.EVT_Signal);
         }
