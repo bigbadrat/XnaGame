@@ -30,6 +30,7 @@ namespace XnaGame
             base.Initialize();
             _spritebatch = new SpriteBatch(Game.GraphicsDevice);
         }
+
         protected override void LoadContent()
         {
             
@@ -42,6 +43,8 @@ namespace XnaGame
             {
                 if (s is SpriteGridSheet)
                     ((SpriteGridSheet)s).Update(gameTime);
+                else if (s is SpriteSheet)
+                    ((SpriteSheet)s).Update(gameTime);
             }
         }
 

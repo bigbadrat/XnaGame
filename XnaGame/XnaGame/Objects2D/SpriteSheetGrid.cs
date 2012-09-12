@@ -14,7 +14,8 @@ namespace XnaGame
         Vector2 _sheet_size;
         Vector2 _frame_size;
         float _framerate;
-        int _last_update;
+        float _timeperframe;
+        double _last_update;
         int _frame;
         
 
@@ -24,28 +25,42 @@ namespace XnaGame
             _sheet_size = sheetSize;
             _frame_size.X = _tex.Width / sheetSize.X;
             _frame_size.Y = _tex.Height / sheetSize.Y;
-            _framerate = 15;
+            _framerate = 30;
             _last_update = 0;
             _frame = 0;
+            _timeperframe = 1.0f / _framerate;            
         }
 
-        public void GetFrame(int i, out Rectangle frame_coord)
-        {            
-            
+        /// <summary>
+        /// Here we calculate the source rectangle for frame i
+        /// assuming the sprite sheet contains a regular grid
+        /// </summary>
+        /// <param name="i"> The frame to calculate</param>
+        /// <returns>The rectangle to use as source for frame i</returns>
+        public Rectangle GetFrame(int i )
+        {   
             int start_y = ( i / (int)_sheet_size.X )* (int)_frame_size.Y;
             int start_x = (i % (int)_sheet_size.X ) * (int)_frame_size.X;
-            frame_coord = new Rectangle(start_x, start_y,
+            return new Rectangle(start_x, start_y,
                                 (int)_frame_size.X, (int)_frame_size.Y);
             
         }
 
+        /// <summary>
+        /// Checks how much time has passed since last update and update a frame
+        /// if needed. 
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
+            _last_update += gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timeperframe > _last_update )
+                return;
             
-            _last_update = gameTime.TotalGameTime.Milliseconds;
+            _last_update -= _timeperframe;
 
             ++ _frame;
-            if (_frame == _sheet_size.X * _sheet_size.Y)
+            if (_frame >= _sheet_size.X * _sheet_size.Y)
             {
                 _frame = 0;
                 return;
@@ -53,46 +68,17 @@ namespace XnaGame
 
         }
 
+        /// <summary>
+        /// Simply query for the the current source rectangle and draw it
+        /// </summary>
+        /// <param name="sb"></param>
         public override void Draw(SpriteBatch sb)
         {
-            Rectangle source;
-            GetFrame(_frame, out source);
-            System.Console.WriteLine("Frame:" + _frame +" Source " + source );
+            Rectangle source = GetFrame(_frame);            
             sb.Draw(_tex, _pos, source, _color, 0, Vector2.Zero, 1, SpriteEffects.None, _z);
         }
 
-        Dictionary<string, Rectangle> spriteSourceRectangles = new Dictionary<string, Rectangle>();
-
-        void ReadSheet()
-        {
-            // open a StreamReader to read the index
-            string path =  "Content\\Sprites\\Sprites.txt";
-            using (StreamReader reader = new StreamReader(path))
-            {
-                // while we're not done reading...
-                while (!reader.EndOfStream)
-                {
-                    // get a line
-                    string line = reader.ReadLine();
-
-                    // split at the equals sign
-                    string[] sides = line.Split('=');
-
-                    // trim the right side and split based on spaces
-                    string[] rectParts = sides[1].Trim().Split(' ');
-
-                    // create a rectangle from those parts
-                    Rectangle r = new Rectangle(
-                       int.Parse(rectParts[0]),
-                       int.Parse(rectParts[1]),
-                       int.Parse(rectParts[2]),
-                       int.Parse(rectParts[3]));
-
-                    // add the name and rectangle to the dictionary
-                    spriteSourceRectangles.Add(sides[0].Trim(), r);
-                }
-            }
-        }
+        
 
     }
 }
