@@ -105,6 +105,16 @@ namespace XnaGame
                 e.DrawEntity(view, proj, "whatever", Game.GraphicsDevice);
             }
 
+            StaticModelComponent x;
+            x = IntrusiveListItem<StaticModelComponent>.Head();
+            while (x != null)
+            {
+                System.Console.WriteLine("Drawing component!!");
+                x.Draw(view, proj, "whatever", Game.GraphicsDevice);
+                x = (StaticModelComponent) x.Next;
+                
+            }
+
             base.Draw(gameTime);
 
             //Signal end

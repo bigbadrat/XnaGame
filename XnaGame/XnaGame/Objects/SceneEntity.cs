@@ -20,10 +20,11 @@ namespace XnaGame
     /// location since we could be talking of just logical elements.
     /// Also BaseEntity provides the support for the event structure.
     /// </summary>
-    public class GameEntity
+    public class GameEntity : IGameEntity
     {
-        public string Name { get; set; }
+        
 
+        string _name;
         public static int IdCounter;
         public int Id;
         protected IObjectManager EntityManager;
@@ -31,13 +32,36 @@ namespace XnaGame
         public GameEntity() 
         { 
             RegisterWithManager(); 
-            Name = "ent_"+Id; 
+            _name = "actor_"+Id; 
         }
 
         public GameEntity(string entname) 
         { 
-            Name = entname; 
+            _name = entname; 
             RegisterWithManager(); 
+        }
+
+        public string Name
+        {
+            get { return _name; }
+        }
+
+        protected List<IEntityComponent> _components = new List<IEntityComponent>();
+
+        public IEntityComponent GetComponent(string name)
+        {
+            foreach( IEntityComponent comp in _components)
+            {
+                if (comp.Name == name)
+                    return comp;
+            }
+            return null;
+        }
+
+        public void AddComponent(IEntityComponent comp)
+        {
+            comp.Owner = this;
+            _components.Add(comp);
         }
 
         private void RegisterWithManager()

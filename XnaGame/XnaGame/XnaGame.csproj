@@ -126,6 +126,8 @@
     <Compile Include="Objects\ModelEntity.cs" />
     <Compile Include="Objects\PlaneEntity.cs" />
     <Compile Include="Objects\SceneEntity.cs" />
+    <Compile Include="Objects\SpatialComponent.cs" />
+    <Compile Include="Objects\StaticModelComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MyGame.cs" />

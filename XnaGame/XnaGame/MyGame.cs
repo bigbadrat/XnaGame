@@ -80,6 +80,13 @@ namespace XnaGame
             sb2.Layer = 100;
             ss.Position = new Vector2(400, 300);
 
+            GameEntity ge = new GameEntity("first?");
+            SpatialComponent sc = new SpatialComponent(ge);
+            ge.AddComponent(sc);
+            sc.Position = new Vector3(50, 0, 0);
+            StaticModelComponent mc = new StaticModelComponent("models/Cube");
+            ge.AddComponent(mc);
+
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 *.suo
+*.cachefile
 XnaGame/XnaGame/bin/
 XnaGame/XnaGame/obj/
 XnaGame/XnaGameContent/obj/
