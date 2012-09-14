@@ -80,7 +80,7 @@ namespace XnaGame
             sb1.Layer = 10;
             sb2.Layer = 100;
             ss.Position = new Vector2(400, 300);
-
+            
             GameEntity ge = new GameEntity("first?");
             SpatialComponent sc = new SpatialComponent();
             ge.AddComponent(sc);
