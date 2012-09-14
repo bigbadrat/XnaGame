@@ -29,8 +29,8 @@ namespace XnaGame
             }
             else
             {
-                tail.LinkNext(item);
                 item.LinkPrev(tail);
+                tail.LinkNext(item);                
                 tail = item;
             }
         }
@@ -53,15 +53,24 @@ namespace XnaGame
                 item.Next.LinkPrev(item.Prev);
             }
         }
-        
-        public Type Next { get; set; }
-        public Type Prev { get; set; }
 
-        public IntrusiveListItem( Type itemToLink)
+        Type _prev;
+        Type _next;
+        public Type Next
+        {
+            get { return _next; }
+            set { _next = value; }
+        }
+        public Type Prev
+        {
+            get { return _prev; }
+            set { _prev = value; }
+        }
+
+        public IntrusiveListItem()
         {
             Next = default(Type);
-            Prev = default(Type);
-            AddToTail(itemToLink);
+            Prev = default(Type);            
         }
 
     }

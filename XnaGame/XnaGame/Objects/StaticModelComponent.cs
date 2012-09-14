@@ -16,10 +16,11 @@ namespace XnaGame
 
         SpatialComponent _spatial;
 
-        public StaticModelComponent(string model)
+        public StaticModelComponent(string model) : base()
         {
             UpdateModel(model);            
-            _link = new IntrusiveListItem<StaticModelComponent>(this);
+            //_link = new IntrusiveListItem<StaticModelComponent>();
+            IntrusiveListItem<StaticModelComponent>.AddToTail(this);
         }
 
         public string Name { get { return "StaticModel"; } }
@@ -32,13 +33,11 @@ namespace XnaGame
         public void LinkPrev(IEntityComponent comp)
         {
             _link.Prev = (StaticModelComponent)comp;
-            comp.LinkNext(this);
         }
 
         public void LinkNext(IEntityComponent comp)
         {
             _link.Next = (StaticModelComponent)comp;
-            comp.LinkPrev(this);
         }
 
         

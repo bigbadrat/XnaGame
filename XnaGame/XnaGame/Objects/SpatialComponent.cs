@@ -18,28 +18,27 @@ namespace XnaGame
         //flag to mark the need to update the matrix. Initialized 
         private bool _matrixIsDirty;
 
-        public SpatialComponent()
+        public SpatialComponent(): base()
         {            
             _position = Vector3.Zero;
             _rotation = Vector3.Zero;
             _scale = Vector3.One;
             _matrixIsDirty = true;
 
-            _link = new IntrusiveListItem<SpatialComponent>(this);
+            //_link = new IntrusiveListItem<SpatialComponent>(this);
+            IntrusiveListItem<SpatialComponent>.AddToTail(this);
         }
 
         public string Name { get { return "Spatial"; } }
 
         public void LinkPrev(IEntityComponent comp)
         {
-            _link.Prev = (SpatialComponent)comp;
-            comp.LinkNext(this);
+            _link.Prev = (SpatialComponent)comp;            
         }
 
         public void LinkNext(IEntityComponent comp)
         {
-            _link.Next = (SpatialComponent)comp;
-            comp.LinkPrev(this);        
+            _link.Next = (SpatialComponent)comp;                
         }
 
         public Vector3 Position

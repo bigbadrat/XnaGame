@@ -122,10 +122,8 @@
     <Compile Include="Objects2D\SpriteSheet.cs" />
     <Compile Include="Objects2D\SpriteSheetGrid.cs" />
     <Compile Include="Objects\BaseComponent.cs" />
-    <Compile Include="Objects\CustomModelEntity.cs" />
     <Compile Include="Objects\IObjects.cs" />
     <Compile Include="Objects\ModelEntity.cs" />
-    <Compile Include="Objects\PlaneEntity.cs" />
     <Compile Include="Objects\SceneEntity.cs" />
     <Compile Include="Objects\SpatialComponent.cs" />
     <Compile Include="Objects\StaticModelComponent.cs" />
