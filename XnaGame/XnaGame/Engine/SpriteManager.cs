@@ -50,9 +50,15 @@ namespace XnaGame
             SpriteGridSheetComponent sgc = IntrusiveListItem<SpriteGridSheetComponent>.Head();
             while (sgc != null)
             {
-                System.Console.WriteLine("drawing a sheet sprite");
                 sgc.Update(gameTime);
                 sgc = (SpriteGridSheetComponent)sgc.Next;
+            }
+
+            SpriteSheetComponent ssc = IntrusiveListItem<SpriteSheetComponent>.Head();
+            while (ssc != null)
+            {
+                ssc.Update(gameTime);
+                ssc = (SpriteSheetComponent)ssc.Next;
             }
         }
 
@@ -80,6 +86,13 @@ namespace XnaGame
             {
                 sgc.Draw(_spritebatch);
                 sgc = (SpriteGridSheetComponent)sgc.Next;
+            }
+
+            SpriteSheetComponent ssc = IntrusiveListItem<SpriteSheetComponent>.Head();
+            while (ssc != null)
+            {
+                ssc.Draw(_spritebatch);
+                ssc = (SpriteSheetComponent)ssc.Next;
             }
             _spritebatch.End();
             render.EndSpriteRendering();

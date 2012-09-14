@@ -112,6 +112,13 @@ namespace XnaGame
             ge4.AddComponent(pos2d2);
             SpriteGridSheetComponent spr2 = new SpriteGridSheetComponent("sprites/plus", new Vector2(6, 4));
             ge4.AddComponent(spr2);
+
+            GameEntity wiz = new GameEntity("wiz");
+            Spatial2DComponent pos2d3 = new Spatial2DComponent();
+            pos2d3.Position = new Vector2(400, 200);
+            wiz.AddComponent(pos2d3);
+            SpriteSheetComponent ssc = new SpriteSheetComponent("sprites/Sheet3");
+            wiz.AddComponent(ssc);
         }
 
         /// <summary>
