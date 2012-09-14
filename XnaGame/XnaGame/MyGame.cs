@@ -109,7 +109,7 @@ namespace XnaGame
             GameEntity ge4 = new GameEntity("plus");
             Spatial2DComponent pos2d2 = new Spatial2DComponent();
             pos2d2.Position = new Vector2(300, 200);
-            ge4.AddComponent(pos2d);
+            ge4.AddComponent(pos2d2);
             SpriteGridSheetComponent spr2 = new SpriteGridSheetComponent("sprites/plus", new Vector2(6, 4));
             ge4.AddComponent(spr2);
         }

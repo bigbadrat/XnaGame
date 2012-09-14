@@ -46,6 +46,14 @@ namespace XnaGame
                 else if (s is SpriteSheet)
                     ((SpriteSheet)s).Update(gameTime);
             }
+
+            SpriteGridSheetComponent sgc = IntrusiveListItem<SpriteGridSheetComponent>.Head();
+            while (sgc != null)
+            {
+                System.Console.WriteLine("drawing a sheet sprite");
+                sgc.Update(gameTime);
+                sgc = (SpriteGridSheetComponent)sgc.Next;
+            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -63,7 +71,6 @@ namespace XnaGame
             SpriteComponent sc = IntrusiveListItem<SpriteComponent>.Head();
             while (sc != null)
             {
-                System.Console.WriteLine("drawing a sprite");
                 sc.Draw(_spritebatch);
                 sc = (SpriteComponent) sc.Next;
             }
@@ -71,7 +78,6 @@ namespace XnaGame
             SpriteGridSheetComponent sgc = IntrusiveListItem<SpriteGridSheetComponent>.Head();
             while (sgc != null)
             {
-                System.Console.WriteLine("drawing a sheet sprite");
                 sgc.Draw(_spritebatch);
                 sgc = (SpriteGridSheetComponent)sgc.Next;
             }

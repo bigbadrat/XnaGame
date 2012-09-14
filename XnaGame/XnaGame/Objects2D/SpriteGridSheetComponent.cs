@@ -94,8 +94,17 @@ namespace XnaGame
         /// <param name="sb"></param>
         public void Draw(SpriteBatch sb)
         {
-            Rectangle source = GetFrame(_frame);            
-            sb.Draw(_tex, _spatial2D.Position, source, _color, 0, Vector2.Zero, 1, SpriteEffects.None, _spatial2D.Layer);
+            Rectangle source = GetFrame(_frame);
+
+            sb.Draw(_tex,                   //Texture to draw
+                _spatial2D.Position,        //position
+                source,                     //Source (no source means the whole rectangle)
+                _color,                     //Color
+                0,                          //Rotation
+                Vector2.Zero,               //Origin of the sprite
+                1,                          //Scale
+                SpriteEffects.None,         //Effectes
+                _spatial2D.Layer);          //Depth
         }
 
         public override void OnOwnerChanged()

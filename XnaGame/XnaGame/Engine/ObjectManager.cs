@@ -109,7 +109,6 @@ namespace XnaGame
             x = IntrusiveListItem<StaticModelComponent>.Head();
             while (x != null)
             {
-                System.Console.WriteLine("Drawing component!!");
                 x.Draw(view, proj, "whatever", Game.GraphicsDevice);
                 x = (StaticModelComponent) x.Next;
                 
