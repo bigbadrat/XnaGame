@@ -6,63 +6,41 @@ using Microsoft.Xna.Framework;
 
 namespace XnaGame
 {
-    public class SpatialComponent: IEntityComponent
+    public class SpatialComponent: BaseComponent<SpatialComponent>, IEntityComponent
     {
-        
-        public SpatialComponent(IGameEntity owner)
-        {
-            Owner = owner;
-            _position = Vector3.Zero;
-            _rotation = Vector3.Zero;
-            _scale = Vector3.One;
-            _matrixIsDirty = true;
-           
-        }
 
-        public string Name { get { return "Spatial"; } }
-
-        public IGameEntity Owner {get; set;}
-
-        IntrusiveListItem<SpatialComponent> _link;
+        //IntrusiveListItem<SpatialComponent> _link;
         Vector3 _position;
         Vector3 _rotation;
         Vector3 _scale;
         Matrix _worldMatrix;
-        
+
         //flag to mark the need to update the matrix. Initialized 
         private bool _matrixIsDirty;
 
-        
+        public SpatialComponent()
+        {            
+            _position = Vector3.Zero;
+            _rotation = Vector3.Zero;
+            _scale = Vector3.One;
+            _matrixIsDirty = true;
 
-        public IntrusiveListItem<SpatialComponent> ComponentList() { return _link; }
+            _link = new IntrusiveListItem<SpatialComponent>(this);
+        }
+
+        public string Name { get { return "Spatial"; } }
+
         public void LinkPrev(IEntityComponent comp)
         {
             _link.Prev = (SpatialComponent)comp;
             comp.LinkNext(this);
         }
+
         public void LinkNext(IEntityComponent comp)
         {
             _link.Next = (SpatialComponent)comp;
             comp.LinkPrev(this);        
         }
-
-        public IEntityComponent Prev
-        {
-            get
-            {
-                return _link.Prev;
-            }
-        }
-
-        public IEntityComponent Next
-        {
-            get
-            {
-                return _link.Next;
-            }
-        }
-
-        public void Process() { }
 
         public Vector3 Position
         {

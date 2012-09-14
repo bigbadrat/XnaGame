@@ -67,6 +67,7 @@ namespace XnaGame
             asm.AddAsset("sprites/plus", AssetType.Texture);
             asm.AddAsset("sprites/Sheet3", AssetType.Texture);
             asm.AddAsset("models/Cube", AssetType.Model);
+            asm.AddAsset("models/saucer", AssetType.Model);
             asm.LoadAssets();
 
             ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
@@ -81,10 +82,11 @@ namespace XnaGame
             ss.Position = new Vector2(400, 300);
 
             GameEntity ge = new GameEntity("first?");
-            SpatialComponent sc = new SpatialComponent(ge);
+            SpatialComponent sc = new SpatialComponent();
             ge.AddComponent(sc);
             sc.Position = new Vector3(50, 0, 0);
-            StaticModelComponent mc = new StaticModelComponent("models/Cube");
+            sc.Scale = new Vector3(0.01f, 0.01f, 0.01f);
+            StaticModelComponent mc = new StaticModelComponent("models/saucer");
             ge.AddComponent(mc);
 
         }

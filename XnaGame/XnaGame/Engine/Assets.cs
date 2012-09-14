@@ -35,7 +35,7 @@ namespace XnaGame
     
     public class AssetManager: IAssetManager
     {
-        public List<Asset> _asset_list;
+        List<Asset> _asset_list;
         ContentManager _content;
 
         public AssetManager(Game game, string root_directory)

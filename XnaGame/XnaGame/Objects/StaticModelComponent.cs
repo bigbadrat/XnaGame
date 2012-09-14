@@ -7,13 +7,12 @@ using Microsoft.Xna.Framework;
 
 namespace XnaGame
 {
-    class StaticModelComponent: IEntityComponent
+    class StaticModelComponent: BaseComponent<StaticModelComponent>, IEntityComponent
     {
 
         public Model Model3D { get; set; }
         public Color AmbientColor { get; set; }
         public string ModelName { set { UpdateModel(value); } }
-        IntrusiveListItem<StaticModelComponent> _link;
 
         SpatialComponent _spatial;
 
@@ -25,18 +24,9 @@ namespace XnaGame
 
         public string Name { get { return "StaticModel"; } }
 
-        IGameEntity _owner;
-        public IGameEntity Owner
+        override public void  OnOwnerChanged()
         {
-            get
-            {
-                return _owner;
-            }
-            set
-            {
-                _spatial = (SpatialComponent)value.GetComponent("Spatial");
-                _owner = value;
-            }
+            _spatial = (SpatialComponent)Owner.GetComponent("Spatial");
         }
 
         public void LinkPrev(IEntityComponent comp)
@@ -44,28 +34,14 @@ namespace XnaGame
             _link.Prev = (StaticModelComponent)comp;
             comp.LinkNext(this);
         }
+
         public void LinkNext(IEntityComponent comp)
         {
             _link.Next = (StaticModelComponent)comp;
             comp.LinkPrev(this);
         }
-        public IEntityComponent Prev
-        {
-            get
-            {
-                return _link.Prev;
-            }
-        }
 
-        public IEntityComponent Next
-        {
-            get
-            {
-                return _link.Next;
-            }
-        }
-
-        public void Process() { }
+        
 
         void UpdateModel(string model)
         {

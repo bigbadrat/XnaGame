@@ -23,22 +23,20 @@ namespace XnaGame
     public class GameEntity : IGameEntity
     {
         
-
         string _name;
         public static int IdCounter;
         public int Id;
-        protected IObjectManager EntityManager;
 
         public GameEntity() 
         { 
             RegisterWithManager(); 
-            _name = "actor_"+Id; 
+            _name = "entity_"+Id; 
         }
 
         public GameEntity(string entname) 
-        { 
-            _name = entname; 
+        {
             RegisterWithManager(); 
+            _name = entname;             
         }
 
         public string Name
@@ -68,7 +66,6 @@ namespace XnaGame
         {
             IObjectManager man = MyGame.GetService<IObjectManager>();
             man.Add(this);
-            EntityManager = man;
             Id = IdCounter++; //get a unique id for this object
             //RegisterEvent(AbyssEventType.EVT_Signal);
         }
