@@ -71,16 +71,16 @@ namespace XnaGame
             asm.AddAsset("models/Ship", AssetType.Model);
             asm.LoadAssets();
 
-            ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
-            SpriteBasic sb1 = new SpriteBasic("fish", "pics/fish");
-            SpriteBasic sb2 = new SpriteBasic("jelly", "pics/jellyfish");
-            SpriteGridSheet sgs = new SpriteGridSheet("plus", "sprites/plus", new Vector2(6, 4));
-            SpriteSheet ss = new SpriteSheet("sheet", "sprites/Sheet3");
-            sb2.Position = new Vector2(500, 50);
-            sb1.Position = new Vector2(100, 100);
-            sb1.Layer = 10;
-            sb2.Layer = 100;
-            ss.Position = new Vector2(400, 300);
+            //ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
+            //SpriteBasic sb1 = new SpriteBasic("fish", "pics/fish");
+            //SpriteBasic sb2 = new SpriteBasic("jelly", "pics/jellyfish");
+            //SpriteGridSheet sgs = new SpriteGridSheet("plus", "sprites/plus", new Vector2(6, 4));
+            //SpriteSheet ss = new SpriteSheet("sheet", "sprites/Sheet3");
+            //sb2.Position = new Vector2(500, 50);
+            //sb1.Position = new Vector2(100, 100);
+            //sb1.Layer = 10;
+            //sb2.Layer = 100;
+            //ss.Position = new Vector2(400, 300);
             
             GameEntity ge = new GameEntity("first?");
             SpatialComponent sc = new SpatialComponent();
@@ -98,6 +98,20 @@ namespace XnaGame
   
             mc = new StaticModelComponent("models/Ship");
             ge2.AddComponent(mc);
+
+            GameEntity ge3 = new GameEntity("fish");
+            Spatial2DComponent pos2d = new Spatial2DComponent();
+            pos2d.Position = new Vector2(30, 30);
+            ge3.AddComponent(pos2d);
+            SpriteComponent spr = new SpriteComponent("pics/fish");
+            ge3.AddComponent(spr);
+
+            GameEntity ge4 = new GameEntity("plus");
+            Spatial2DComponent pos2d2 = new Spatial2DComponent();
+            pos2d2.Position = new Vector2(300, 200);
+            ge4.AddComponent(pos2d);
+            SpriteGridSheetComponent spr2 = new SpriteGridSheetComponent("sprites/plus", new Vector2(6, 4));
+            ge4.AddComponent(spr2);
         }
 
         /// <summary>
@@ -131,7 +145,8 @@ namespace XnaGame
             else
                 fishx = 0;
             SpriteBasic fish = GetServiceAs<ISpriteManager>().GetSprite("fish");
-            fish.Position = pos;
+            if (fish != null)
+                fish.Position = pos;
 
         }
 

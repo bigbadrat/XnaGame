@@ -19,7 +19,7 @@ namespace XnaGame
         public StaticModelComponent(string model) : base()
         {
             UpdateModel(model);            
-            //_link = new IntrusiveListItem<StaticModelComponent>();
+            
             IntrusiveListItem<StaticModelComponent>.AddToTail(this);
         }
 

@@ -25,7 +25,6 @@ namespace XnaGame
             _scale = Vector3.One;
             _matrixIsDirty = true;
 
-            //_link = new IntrusiveListItem<SpatialComponent>(this);
             IntrusiveListItem<SpatialComponent>.AddToTail(this);
         }
 

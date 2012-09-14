@@ -7,45 +7,45 @@ namespace XnaGame
     public class IntrusiveListItem<Type> 
         where Type : IEntityComponent
     {
-        static Type head = default(Type);
-        static Type tail = default(Type);
+        static Type _head = default(Type);
+        static Type _tail = default(Type);
 
         public static Type Head()
         {
-            return head;
+            return _head;
         }
 
         public static bool Empty()
         {
-            return head == null;
+            return _head == null;
         }
 
         public static void AddToTail(Type item)
         {
             if (Empty())
             {
-                head = item;
-                tail = item;
+                _head = item;
+                _tail = item;
             }
             else
             {
-                item.LinkPrev(tail);
-                tail.LinkNext(item);                
-                tail = item;
+                item.LinkPrev(_tail);
+                _tail.LinkNext(item);                
+                _tail = item;
             }
         }
 
         public static void Remove(Type item)
         {
-            if (item.Equals(head))
+            if (item.Equals(_head))
             {                
-                head = (Type)item.Next;
-                head.LinkPrev(null);                
+                _head = (Type)item.Next;
+                _head.LinkPrev(null);                
             }
-            else if (item.Equals(tail))
+            else if (item.Equals(_tail))
             {
-                tail = (Type)item.Prev;
-                tail.LinkNext(null);
+                _tail = (Type)item.Prev;
+                _tail.LinkNext(null);
             }
             else
             {

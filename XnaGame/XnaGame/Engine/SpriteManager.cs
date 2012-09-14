@@ -59,6 +59,22 @@ namespace XnaGame
             {
                 s.Draw(_spritebatch);
             }
+
+            SpriteComponent sc = IntrusiveListItem<SpriteComponent>.Head();
+            while (sc != null)
+            {
+                System.Console.WriteLine("drawing a sprite");
+                sc.Draw(_spritebatch);
+                sc = (SpriteComponent) sc.Next;
+            }
+
+            SpriteGridSheetComponent sgc = IntrusiveListItem<SpriteGridSheetComponent>.Head();
+            while (sgc != null)
+            {
+                System.Console.WriteLine("drawing a sheet sprite");
+                sgc.Draw(_spritebatch);
+                sgc = (SpriteGridSheetComponent)sgc.Next;
+            }
             _spritebatch.End();
             render.EndSpriteRendering();
         }
