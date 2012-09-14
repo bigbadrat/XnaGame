@@ -38,6 +38,11 @@ namespace XnaGame
             {
                 return _link.Prev;
             }
+            set
+            {
+                if (value is Derived)
+                    _link.Prev = (Derived)value;
+            }
         }
 
         public IEntityComponent Next
@@ -45,6 +50,11 @@ namespace XnaGame
             get
             {
                 return _link.Next;
+            }
+            set
+            {
+                if (value is Derived)
+                    _link.Next = (Derived)value;
             }
         }
 

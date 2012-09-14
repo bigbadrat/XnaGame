@@ -28,19 +28,7 @@ namespace XnaGame
         override public void  OnOwnerChanged()
         {
             _spatial = (SpatialComponent)Owner.GetComponent("Spatial");
-        }
-
-        public void LinkPrev(IEntityComponent comp)
-        {
-            _link.Prev = (StaticModelComponent)comp;
-        }
-
-        public void LinkNext(IEntityComponent comp)
-        {
-            _link.Next = (StaticModelComponent)comp;
-        }
-
-        
+        }        
 
         void UpdateModel(string model)
         {

@@ -29,8 +29,8 @@ namespace XnaGame
             }
             else
             {
-                item.LinkPrev(_tail);
-                _tail.LinkNext(item);                
+                item.Prev = _tail;
+                _tail.Next = item;                
                 _tail = item;
             }
         }
@@ -40,17 +40,17 @@ namespace XnaGame
             if (item.Equals(_head))
             {                
                 _head = (Type)item.Next;
-                _head.LinkPrev(null);                
+                _head.Prev = null;                
             }
             else if (item.Equals(_tail))
             {
                 _tail = (Type)item.Prev;
-                _tail.LinkNext(null);
+                _tail.Next = null;
             }
             else
             {
-                item.Prev.LinkNext(item.Next);
-                item.Next.LinkPrev(item.Prev);
+                item.Prev.Next = item.Next;
+                item.Next.Prev = item.Prev;
             }
         }
 
@@ -91,10 +91,8 @@ namespace XnaGame
         string Name { get; }
         void Process();
 
-        void LinkPrev(IEntityComponent comp);
-        void LinkNext(IEntityComponent comp);
-        IEntityComponent Prev { get; }
-        IEntityComponent Next { get; }
+        IEntityComponent Prev { get; set; }
+        IEntityComponent Next { get; set; }
     }
 
     /// <summary>

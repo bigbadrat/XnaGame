@@ -35,16 +35,6 @@ namespace XnaGame
 
         public string Name { get { return "SpriteSheet"; } }
 
-        public void LinkPrev(IEntityComponent comp)
-        {
-            _link.Prev = (SpriteSheetComponent)comp;
-        }
-
-        public void LinkNext(IEntityComponent comp)
-        {
-            _link.Next = (SpriteSheetComponent)comp;
-        }
-
         Rectangle GetFrame(string frame_name)
         {
             return _frames[frame_name];

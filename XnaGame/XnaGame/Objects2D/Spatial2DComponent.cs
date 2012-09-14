@@ -19,16 +19,6 @@ namespace XnaGame
 
         public string Name { get { return "Spatial2D"; } }
 
-        public void LinkPrev(IEntityComponent comp)
-        {
-            _link.Prev = (Spatial2DComponent)comp;
-        }
-
-        public void LinkNext(IEntityComponent comp)
-        {
-            _link.Next = (Spatial2DComponent)comp;
-        }
-
         public Vector2 Position
         {
             get { return _pos; }

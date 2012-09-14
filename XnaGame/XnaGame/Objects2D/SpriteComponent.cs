@@ -26,16 +26,6 @@ namespace XnaGame
 
         public string Name { get { return "Sprite"; } }
 
-        public void LinkPrev(IEntityComponent comp)
-        {
-            _link.Prev = (SpriteComponent)comp;
-        }
-
-        public void LinkNext(IEntityComponent comp)
-        {
-            _link.Next = (SpriteComponent)comp;
-        }
-
         public virtual void Draw(SpriteBatch sb)
         {            
             sb.Draw(_tex,                   //Texture to draw

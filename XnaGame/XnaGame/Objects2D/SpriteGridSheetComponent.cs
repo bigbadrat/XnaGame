@@ -42,15 +42,6 @@ namespace XnaGame
 
         public string Name { get { return "SpriteGridSheet"; } }
 
-        public void LinkPrev(IEntityComponent comp)
-        {
-            _link.Prev = (SpriteGridSheetComponent)comp;
-        }
-
-        public void LinkNext(IEntityComponent comp)
-        {
-            _link.Next = (SpriteGridSheetComponent)comp;
-        }
         /// <summary>
         /// Here we calculate the source rectangle for frame i
         /// assuming the sprite sheet contains a regular grid

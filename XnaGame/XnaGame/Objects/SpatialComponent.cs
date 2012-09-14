@@ -8,8 +8,6 @@ namespace XnaGame
 {
     public class SpatialComponent: BaseComponent<SpatialComponent>, IEntityComponent
     {
-
-        //IntrusiveListItem<SpatialComponent> _link;
         Vector3 _position;
         Vector3 _rotation;
         Vector3 _scale;
@@ -29,16 +27,6 @@ namespace XnaGame
         }
 
         public string Name { get { return "Spatial"; } }
-
-        public void LinkPrev(IEntityComponent comp)
-        {
-            _link.Prev = (SpatialComponent)comp;            
-        }
-
-        public void LinkNext(IEntityComponent comp)
-        {
-            _link.Next = (SpatialComponent)comp;                
-        }
 
         public Vector3 Position
         {
