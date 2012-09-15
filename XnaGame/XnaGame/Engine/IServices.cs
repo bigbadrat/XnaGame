@@ -31,9 +31,7 @@ namespace XnaGame
 
     public interface ISpriteManager
     {
-        void AddSprite(SpriteBasic sb);
-        SpriteBasic GetSprite(int i);
-        SpriteBasic GetSprite(string name);
+        void Draw(GameTime gameTime);
     }
 
     public interface IRenderer

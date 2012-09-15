@@ -121,10 +121,7 @@
     <Compile Include="Objects2D\SpriteSheetComponent.cs" />
     <Compile Include="Objects2D\Spatial2DComponent.cs" />
     <Compile Include="Objects2D\SpriteComponent.cs" />
-    <Compile Include="Objects2D\SpriteBasic.cs" />
     <Compile Include="Engine\SpriteManager.cs" />
-    <Compile Include="Objects2D\SpriteSheet.cs" />
-    <Compile Include="Objects2D\SpriteSheetGrid.cs" />
     <Compile Include="Objects\BaseComponent.cs" />
     <Compile Include="Objects\IObjects.cs" />
     <Compile Include="Objects\ModelEntity.cs" />
