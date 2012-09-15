@@ -70,19 +70,9 @@ namespace XnaGame
             asm.AddAsset("models/saucer", AssetType.Model);
             asm.AddAsset("models/Ship", AssetType.Model);
             asm.LoadAssets();
-
-            //ModelEntity m = new ModelEntity("ship", "models/Cube", Vector3.Zero);
-            //SpriteBasic sb1 = new SpriteBasic("fish", "pics/fish");
-            //SpriteBasic sb2 = new SpriteBasic("jelly", "pics/jellyfish");
-            //SpriteGridSheet sgs = new SpriteGridSheet("plus", "sprites/plus", new Vector2(6, 4));
-            //SpriteSheet ss = new SpriteSheet("sheet", "sprites/Sheet3");
-            //sb2.Position = new Vector2(500, 50);
-            //sb1.Position = new Vector2(100, 100);
-            //sb1.Layer = 10;
-            //sb2.Layer = 100;
-            //ss.Position = new Vector2(400, 300);
             
-            GameEntity ge = new GameEntity("first?");
+            //Creating an entity with a 3d model
+            GameEntity ge = new GameEntity("saucer");
             SpatialComponent sc = new SpatialComponent();
             ge.AddComponent(sc);
             sc.Position = new Vector3(50, 0, 0);
@@ -90,15 +80,16 @@ namespace XnaGame
             StaticModelComponent mc = new StaticModelComponent("models/saucer");
             ge.AddComponent(mc);
 
-            GameEntity ge2 = new GameEntity("second");
+            //Creating a different entity with another 3d model
+            GameEntity ge2 = new GameEntity("ship");
             sc = new SpatialComponent();
             sc.Position = new Vector3(-50, 0, 0);
             sc.Scale = new Vector3(0.02f, 0.02f, 0.02f);
-            ge2.AddComponent(sc);
-  
+            ge2.AddComponent(sc);  
             mc = new StaticModelComponent("models/Ship");
             ge2.AddComponent(mc);
 
+            //Creating a sprite using a fish
             GameEntity ge3 = new GameEntity("fish");
             Spatial2DComponent pos2d = new Spatial2DComponent();
             pos2d.Position = new Vector2(30, 30);
@@ -106,6 +97,7 @@ namespace XnaGame
             SpriteComponent spr = new SpriteComponent("pics/fish");
             ge3.AddComponent(spr);
 
+            //Creating an entity using an animated sprite
             GameEntity ge4 = new GameEntity("plus");
             Spatial2DComponent pos2d2 = new Spatial2DComponent();
             pos2d2.Position = new Vector2(300, 200);
@@ -113,6 +105,7 @@ namespace XnaGame
             SpriteGridSheetComponent spr2 = new SpriteGridSheetComponent("sprites/plus", new Vector2(6, 4));
             ge4.AddComponent(spr2);
 
+            //Creating an entity using the spritesheet sprite.
             GameEntity wiz = new GameEntity("wiz");
             Spatial2DComponent pos2d3 = new Spatial2DComponent();
             pos2d3.Position = new Vector2(400, 200);
@@ -120,6 +113,7 @@ namespace XnaGame
             SpriteSheetComponent ssc = new SpriteSheetComponent("sprites/Sheet3");
             wiz.AddComponent(ssc);
 
+            //Another simple sprite.
             GameEntity jelly = new GameEntity("jelly");
             Spatial2DComponent jellypos = new Spatial2DComponent();
             jellypos.Position = new Vector2(400, 400);
