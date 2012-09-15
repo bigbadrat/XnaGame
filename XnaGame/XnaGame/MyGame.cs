@@ -119,6 +119,13 @@ namespace XnaGame
             wiz.AddComponent(pos2d3);
             SpriteSheetComponent ssc = new SpriteSheetComponent("sprites/Sheet3");
             wiz.AddComponent(ssc);
+
+            GameEntity jelly = new GameEntity("jelly");
+            Spatial2DComponent jellypos = new Spatial2DComponent();
+            jellypos.Position = new Vector2(400, 400);
+            jelly.AddComponent(jellypos);
+            SpriteComponent jellysprite = new SpriteComponent("pics/jellyfish");
+            jelly.AddComponent(jellysprite);
         }
 
         /// <summary>
@@ -151,9 +158,12 @@ namespace XnaGame
                 ++fishx;
             else
                 fishx = 0;
-            SpriteBasic fish = GetServiceAs<ISpriteManager>().GetSprite("fish");
+            GameEntity fish = GetServiceAs<IObjectManager>().GetEntity("fish");
             if (fish != null)
-                fish.Position = pos;
+            {
+                Spatial2DComponent fish_pos = (Spatial2DComponent)fish.GetComponent("Spatial2D");
+                fish_pos.Position = pos;
+            }
 
         }
 
@@ -170,10 +180,11 @@ namespace XnaGame
 
         public void UpdateJellyfish(InputEventArgs input)
         {
-            SpriteBasic jelly = GetServiceAs<ISpriteManager>().GetSprite("jelly");
+            IGameEntity jelly = GetServiceAs<IObjectManager>().GetEntity("jelly");
             if (jelly == null)
                 return;
-            Vector2 jellypos = jelly.Position;
+            Spatial2DComponent jelly_comp = (Spatial2DComponent)jelly.GetComponent("Spatial2D");
+            Vector2 jellypos = jelly_comp.Position;
 
             if (input.x > 0)
                 jellypos.X += 5;
@@ -184,8 +195,8 @@ namespace XnaGame
             else if (input.y < 0)
                 jellypos.Y -= 5;
 
-            
-            jelly.Position = jellypos;
+
+            jelly_comp.Position = jellypos;
 
         }
         
