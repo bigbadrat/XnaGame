@@ -111,7 +111,7 @@
     <Compile Include="Behaviors\SimpleMovementBehaviors.cs" />
     <Compile Include="Behaviors\OscillatingMovementBehaviors.cs" />
     <Compile Include="Behaviors\TouchableComponent.cs" />
-    <Compile Include="Behaviors\TimerComponents.cs" />
+    <Compile Include="Behaviors\TimerBehaviors.cs" />
     <Compile Include="Engine\Assets.cs" />
     <Compile Include="Engine\Input.cs" />
     <Compile Include="Engine\InputState.cs" />

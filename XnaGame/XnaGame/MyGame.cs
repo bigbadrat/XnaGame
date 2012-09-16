@@ -79,6 +79,11 @@ namespace XnaGame
             sc.Scale = new Vector3(0.01f, 0.01f, 0.01f);
             StaticModelComponent mc = new StaticModelComponent("models/saucer");
             ge.AddComponent(mc);
+            BehaviorComponent bh = new BehaviorComponent();
+            ge.AddComponent(bh);
+            DelayedCallBehavior dcb = new DelayedCallBehavior(2, true, LogTimer);
+            bh.AddBehavior(dcb);
+
 
             //Creating a different entity with another 3d model
             GameEntity ge2 = new GameEntity("ship");
@@ -88,7 +93,7 @@ namespace XnaGame
             ge2.AddComponent(sc);  
             mc = new StaticModelComponent("models/Ship");
             ge2.AddComponent(mc);
-            BehaviorComponent bh = new BehaviorComponent();
+            bh = new BehaviorComponent();
             ge2.AddComponent(bh);
             TimedGrowComponent tgc = new TimedGrowComponent(0.025f, 0.01f, 1);
             bh.AddBehavior(tgc);
@@ -200,6 +205,11 @@ namespace XnaGame
             Move2DMessage move = new Move2DMessage(jellymove);
             jelly.ReceiveMessage(move);
 
+        }
+
+        public void LogTimer()
+        {
+            System.Console.WriteLine("Delayed callback in action");
         }
         
         static public MyGame GetGame()
