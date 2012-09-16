@@ -94,6 +94,8 @@ namespace XnaGame
             bh.AddBehavior(tgc);
             RotateBehavior rc = new RotateBehavior(45);
             bh.AddBehavior(rc);
+            LinearOscillateBehavior loc = new LinearOscillateBehavior(1, sc.Position, sc.Position + new Vector3(-50, 0, 0));
+            bh.AddBehavior(loc);
 
 
             //Creating a sprite using a fish
