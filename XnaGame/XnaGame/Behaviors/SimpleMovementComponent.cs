@@ -10,13 +10,13 @@ namespace XnaGame
     /// Behavior to move an entity through space with a constant velocity.
     /// Never completes.
     /// </summary>
-    public class BehaviorConstantLinearMove : BehaviorBase
+    public class ConstantLinearMoveComponent : BehaviorBase
     {
         public SpatialEntity pOwner;
         public float Speed;
         public Vector3 Direction;
 
-        public BehaviorConstantLinearMove(SpatialEntity o, Vector3 v)
+        public ConstantLinearMoveComponent(SpatialEntity o, Vector3 v)
             : base(o)
         {
             pOwner = o;
@@ -40,7 +40,7 @@ namespace XnaGame
     /// All time there's some negative accel trying to move you back and make 
     /// you still .
     /// </summary>
-    public class BehaviorInertialMove : BehaviorBase
+    public class InertialMoveComponent : BehaviorBase
     {
         public SpatialEntity pOwner;
         public float Speed;
@@ -48,7 +48,7 @@ namespace XnaGame
         public float Accel;
         public Vector3 Direction;
 
-        public BehaviorInertialMove(SpatialEntity o, Vector3 v, float a, float mv)
+        public InertialMoveComponent(SpatialEntity o, Vector3 v, float a, float mv)
             : base(o)
         {
             pOwner = o;
@@ -103,7 +103,7 @@ namespace XnaGame
     /// Behavior that moves an entity at a linear speed until it reaches an
     /// objective. When the objective is reached, an event is raised.
     /// </summary>
-    public class BehaviorLinearMoveTo : BehaviorBase
+    public class LinearMoveToComponent : BehaviorBase
     {
         public SpatialEntity pOwner;
 
@@ -113,7 +113,7 @@ namespace XnaGame
         Vector3 targetPosition;
         bool arrived;
 
-        public BehaviorLinearMoveTo(SpatialEntity o, Vector3 t, float time)
+        public LinearMoveToComponent(SpatialEntity o, Vector3 t, float time)
             : base(o)
         {
             pOwner = o;
@@ -157,12 +157,12 @@ namespace XnaGame
     /// Very simple behavior to make something rotate on its own Z axis
     /// at a given angular speed.
     /// </summary>
-    public class BehaviorRotate : BehaviorBase
+    public class RotateComponent : BehaviorBase
     {
         public SpatialEntity pOwner;
         public float RotSpeed;
 
-        public BehaviorRotate(SpatialEntity o, float rotSpeed)
+        public RotateComponent(SpatialEntity o, float rotSpeed)
             : base(o)
         {
             pOwner = o;
@@ -185,13 +185,13 @@ namespace XnaGame
     /// Behavior to make something rotate around a point
     /// at a given angular speed using a fixed radius.
     /// </summary>
-    public class BehaviorRotateAround : BehaviorBase
+    public class RotateAroundComponent : BehaviorBase
     {
         public SpatialEntity pOwner;
         public float RotSpeed;
         public float RotRadius;
 
-        public BehaviorRotateAround(SpatialEntity o, float rotSpeed, float rotRadius)
+        public RotateAroundComponent(SpatialEntity o, float rotSpeed, float rotRadius)
             : base(o)
         {
             pOwner = o;
@@ -211,7 +211,7 @@ namespace XnaGame
 
     }
 
-    public class CBehaviorTimedGrow : BehaviorBase
+    public class TimedGrowComponent : BehaviorBase
     {
         public SpatialEntity pOwner;
 
@@ -222,7 +222,7 @@ namespace XnaGame
         float m_fCurrentTime;
         bool m_bFlag;
 
-        public CBehaviorTimedGrow(SpatialEntity o, float targetSmallScale, float targetBigScale, float targetFreq)
+        public TimedGrowComponent(SpatialEntity o, float targetSmallScale, float targetBigScale, float targetFreq)
             : base(o)
         {
             m_fCurrentTime = 0.0f;

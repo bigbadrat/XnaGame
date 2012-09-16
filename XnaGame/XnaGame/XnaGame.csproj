@@ -108,9 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\BaseBehaviors.cs" />
-    <Compile Include="Behaviors\CollisionBehaviors.cs" />
-    <Compile Include="Behaviors\OscillatingMovement.cs" />
-    <Compile Include="Behaviors\SimpleMovement.cs" />
+    <Compile Include="Behaviors\SimpleMovementComponent.cs" />
+    <Compile Include="Behaviors\OscillatingMovementComponent.cs" />
+    <Compile Include="Behaviors\TouchableComponent.cs" />
     <Compile Include="Behaviors\TimeBehaviors.cs" />
     <Compile Include="Engine\Assets.cs" />
     <Compile Include="Engine\Input.cs" />
