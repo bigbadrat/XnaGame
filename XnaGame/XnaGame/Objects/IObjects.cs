@@ -92,17 +92,27 @@ namespace XnaGame
     }
 
     /// <summary>
-    /// This is the very basic definition of an interface to group components
+    /// This is the very basic definition of an interface to group components.
+    /// The GameEntities by themselves don´t do much except gather a group of
+    /// components that compose a specific actor. 
+    /// The extensible method to add functionality is via messages. The GameEntity
+    /// will transfer the message to components and they will do as needed.
     /// </summary>
     public interface IGameEntity
     {
         string Name { get; }
         IEntityComponent GetComponent(string name);
         void AddComponent(IEntityComponent comp);
-
         void ReceiveMessage(Message msg);
     }
 
+    /// <summary>
+    /// The components ar the different pieces of functionality that put together
+    /// form an entity. Each component knows only of its own resposability and at
+    /// most knows of other components.
+    /// The components are responsible of processing messages that are relevant 
+    /// for their responsibility.
+    /// </summary>
     public interface IEntityComponent
     {
         IGameEntity Owner { get; set; }
@@ -111,38 +121,6 @@ namespace XnaGame
 
         IEntityComponent Prev { get; set; }
         IEntityComponent Next { get; set; }
-    }
-
-    /// <summary>
-    /// Simple entity that has a position, orientation and scale associated.
-    /// Everything that uses a space in the world should derive frome here
-    /// </summary>
-    public interface ISpatialEntity
-    {
-        Vector3 Position { get; set; }
-        Vector3 Rotation { get; set; }
-        Vector3 Scale { get; set; }
-        Matrix WorldMatrix { get; }
-
-    }
-
-    /// <summary>
-    /// Entity that can be drawn. Note that all the drawing code should be
-    /// accesible inside this function because this will be called from the manager.
-    /// </summary>
-    public interface IDrawableEntity : ISpatialEntity
-    {
-        void DrawEntity(Matrix view, Matrix projection,
-            string effectTechniqueName, GraphicsDevice device);
-    }
-
-    /// <summary>
-    /// Entity that can be updated. Note that all the update code should be
-    /// accesible inside this function because this will be called from the manager.
-    /// </summary>
-    public interface IUpdatableEntity
-    {
-        void Update(GameTime gameTime);
     }
 
 }

@@ -17,9 +17,6 @@ namespace XnaGame
         Dictionary<int, GameEntity> _entity_id_index = new Dictionary<int, GameEntity>();
         Dictionary<string, GameEntity> _entity_name_index = new Dictionary<string, GameEntity>();
 
-        List<IUpdatableEntity> _updatable_list = new List<IUpdatableEntity>();
-        List<IDrawableEntity> _drawable_list = new List<IDrawableEntity>();
-
         List<GameEntity> EntityToBeRemovedList = new List<GameEntity>();
         List<GameEntity> NewlyCreatedEntityList = new List<GameEntity>();
 
@@ -79,11 +76,6 @@ namespace XnaGame
             //Add any entity to lists
             AddNewborns();
 
-            foreach (IUpdatableEntity e in _updatable_list)
-            {
-                e.Update(gameTime);
-            }
-
             BehaviorComponent bc;
             bc = IntrusiveListItem<BehaviorComponent>.Head();
             for (; bc != null; bc = (BehaviorComponent)bc.Next)
@@ -107,18 +99,13 @@ namespace XnaGame
             //Start drawing
             GraphicsDevice.Clear(Color.Black);
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            foreach (IDrawableEntity e in _drawable_list)
-            {
-                e.DrawEntity(view, proj, "whatever", Game.GraphicsDevice);
-            }
 
             StaticModelComponent x;
             x = IntrusiveListItem<StaticModelComponent>.Head();
             while (x != null)
             {
                 x.Draw(view, proj, "whatever", Game.GraphicsDevice);
-                x = (StaticModelComponent) x.Next;
-                
+                x = (StaticModelComponent) x.Next;                
             }
 
             base.Draw(gameTime);
@@ -132,10 +119,6 @@ namespace XnaGame
             foreach (GameEntity e in EntityToBeRemovedList)
             {
                 _entity_list.Remove(e);
-                if (e is IDrawableEntity)
-                    _drawable_list.Remove((IDrawableEntity)e);
-                if (e is IUpdatableEntity)
-                    _updatable_list.Remove((IUpdatableEntity)e);
                 _entity_id_index.Remove(e.Id);
                 _entity_name_index.Remove(e.Name);
             }
@@ -147,11 +130,6 @@ namespace XnaGame
             {
                 e.Init();
                 _entity_list.Add(e);
-                if (e is IDrawableEntity)
-                    _drawable_list.Add((IDrawableEntity)e);
-                if (e is IUpdatableEntity)
-                    _updatable_list.Add((IUpdatableEntity)e);
-
                 _entity_id_index.Add(e.Id, e);
                 _entity_name_index.Add(e.Name, e);
             }
