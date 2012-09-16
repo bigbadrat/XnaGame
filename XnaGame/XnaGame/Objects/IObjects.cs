@@ -75,6 +75,22 @@ namespace XnaGame
 
     }
 
+    public class Message
+    {
+        MsgType _type;
+
+        public MsgType MessageType { get { return _type; } set { _type = value; } }
+
+    }
+
+    public enum MsgType
+    {
+        Move = 1,
+        MoveTo = 2,
+        Move2D = 3,
+        MoveTo2D = 4
+    }
+
     /// <summary>
     /// This is the very basic definition of an interface to group components
     /// </summary>
@@ -83,13 +99,15 @@ namespace XnaGame
         string Name { get; }
         IEntityComponent GetComponent(string name);
         void AddComponent(IEntityComponent comp);
+
+        void ReceiveMessage(Message msg);
     }
 
     public interface IEntityComponent
     {
         IGameEntity Owner { get; set; }
         string Name { get; }
-        void Process();
+        void Process(Message msg);
 
         IEntityComponent Prev { get; set; }
         IEntityComponent Next { get; set; }

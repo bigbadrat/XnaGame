@@ -6,6 +6,41 @@ using Microsoft.Xna.Framework;
 
 namespace XnaGame
 {
+
+    public class MoveMessage: Message
+    {
+        public Vector3 Delta;
+
+        public MoveMessage()
+        {
+            MessageType = MsgType.Move;
+            Delta = Vector3.Zero;
+        }
+        
+        public MoveMessage( Vector3 x)
+        {
+            MessageType = MsgType.Move;
+            Delta = x;
+        }
+    }
+
+    public class MoveToMessage : Message
+    {
+        public Vector3 To;
+
+        public MoveToMessage()
+        {
+            MessageType = MsgType.Move;
+            To = Vector3.Zero;
+        }
+
+        public MoveToMessage(Vector3 x)
+        {
+            MessageType = MsgType.Move;
+            To = x;
+        }
+    }
+
     public class SpatialComponent: BaseComponent<SpatialComponent>, IEntityComponent
     {
         Vector3 _position;
@@ -97,6 +132,20 @@ namespace XnaGame
                     Matrix.CreateTranslation(Position); 
             _matrixIsDirty = false; 
         }
-               
+
+        public override void Process(Message msg)
+        {
+
+            switch (msg.MessageType)
+            {
+                case MsgType.Move:
+                    Position += ((MoveMessage)msg).Delta;
+                    break;
+                case MsgType.MoveTo:
+                    Position = ((MoveToMessage)msg).To;
+                    break;
+
+            }
+        }
     }
 }

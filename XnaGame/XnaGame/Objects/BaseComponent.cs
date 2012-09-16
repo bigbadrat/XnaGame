@@ -66,6 +66,7 @@ namespace XnaGame
             }
         }
 
-        virtual public void Process() { }
+        virtual public void Process( Message msg ) { }
     }
+    
 }

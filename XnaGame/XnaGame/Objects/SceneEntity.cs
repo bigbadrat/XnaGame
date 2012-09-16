@@ -101,6 +101,14 @@ namespace XnaGame
         }
         #endregion
 
+
+        public void ReceiveMessage(Message msg)
+        {
+            foreach( IEntityComponent ec in _components)
+            {
+                ec.Process(msg);
+            }
+        }
         //#region EventHandling functions
 
         //List<AbyssEventDescription> EventList = new List<AbyssEventDescription>();

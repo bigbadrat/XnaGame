@@ -143,20 +143,19 @@ namespace XnaGame
                 this.Exit();
 
             // TODO: Add your update logic here
-
             base.Update(gameTime);
 
-            Vector2 pos = new Vector2(0, 0);
-            pos.X += fishx;
+            Vector2 fish_pos = Vector2.Zero;
+            fish_pos.X += fishx;
             if (fishx < 700)
                 ++fishx;
             else
                 fishx = 0;
+
             GameEntity fish = GetServiceAs<IObjectManager>().GetEntity("fish");
             if (fish != null)
             {
-                Spatial2DComponent fish_pos = (Spatial2DComponent)fish.GetComponent("Spatial2D");
-                fish_pos.Position = pos;
+                fish.ReceiveMessage(new MoveTo2DMessage(fish_pos));
             }
 
         }
@@ -177,20 +176,20 @@ namespace XnaGame
             IGameEntity jelly = GetServiceAs<IObjectManager>().GetEntity("jelly");
             if (jelly == null)
                 return;
-            Spatial2DComponent jelly_comp = (Spatial2DComponent)jelly.GetComponent("Spatial2D");
-            Vector2 jellypos = jelly_comp.Position;
+
+            Vector2 jellymove = Vector2.Zero;
 
             if (input.x > 0)
-                jellypos.X += 5;
+                jellymove.X += 5;
             else if (input.x < 0)
-                jellypos.X -= 5;
+                jellymove.X -= 5;
             if (input.y > 0)
-                jellypos.Y += 5;
+                jellymove.Y += 5;
             else if (input.y < 0)
-                jellypos.Y -= 5;
+                jellymove.Y -= 5;
 
-
-            jelly_comp.Position = jellypos;
+            Move2DMessage move = new Move2DMessage(jellymove);
+            jelly.ReceiveMessage(move);
 
         }
         

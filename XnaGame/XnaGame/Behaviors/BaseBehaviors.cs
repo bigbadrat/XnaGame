@@ -5,8 +5,6 @@ using Microsoft.Xna.Framework;
 
 namespace XnaGame
 {
-    //public delegate void AbyssEventHandler(Object o, EventArgs args);
-
     public interface IBehavior
     {
         bool IsComplete();

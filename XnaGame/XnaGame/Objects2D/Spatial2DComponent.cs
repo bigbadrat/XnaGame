@@ -6,6 +6,41 @@ using Microsoft.Xna.Framework;
 
 namespace XnaGame
 {
+
+    public class Move2DMessage : Message
+    {
+        public Vector2 Delta;
+
+        public Move2DMessage()
+        {
+            MessageType = MsgType.Move;
+            Delta = Vector2.Zero;
+        }
+
+        public Move2DMessage(Vector2 x)
+        {
+            MessageType = MsgType.Move2D;
+            Delta = x;
+        }
+    }
+
+    public class MoveTo2DMessage : Message
+    {
+        public Vector2 To;
+
+        public MoveTo2DMessage()
+        {
+            MessageType = MsgType.Move;
+            To = Vector2.Zero;
+        }
+
+        public MoveTo2DMessage(Vector2 x)
+        {
+            MessageType = MsgType.MoveTo2D;
+            To = x;
+        }
+    }
+
     public class Spatial2DComponent : BaseComponent<Spatial2DComponent>, IEntityComponent
     {
         Vector2 _pos;
@@ -40,6 +75,20 @@ namespace XnaGame
         {
             get { return _z; }
             set { _z = (255 - value) * 1.0f / 255; }
+        }
+
+        override public void Process(Message msg) 
+        {
+            switch ( msg.MessageType )
+            {
+                case MsgType.Move2D:
+                    Position += ((Move2DMessage)msg).Delta;
+                    break;
+                case MsgType.MoveTo2D:
+                    Position = ((MoveTo2DMessage)msg).To;
+                    break;
+
+            }
         }
     }
 }
