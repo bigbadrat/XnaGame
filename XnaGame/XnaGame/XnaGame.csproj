@@ -107,8 +107,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\BaseBehaviors.cs" />
-    <Compile Include="Behaviors\SimpleMovementComponent.cs" />
+    <Compile Include="Behaviors\BehaviorComponent.cs" />
+    <Compile Include="Behaviors\SimpleMovementBehaviors.cs" />
     <Compile Include="Behaviors\OscillatingMovementComponent.cs" />
     <Compile Include="Behaviors\TouchableComponent.cs" />
     <Compile Include="Behaviors\TimerComponents.cs" />
@@ -124,7 +124,6 @@
     <Compile Include="Engine\SpriteManager.cs" />
     <Compile Include="Objects\BaseComponent.cs" />
     <Compile Include="Objects\IObjects.cs" />
-    <Compile Include="Objects\ModelEntity.cs" />
     <Compile Include="Objects\SceneEntity.cs" />
     <Compile Include="Objects\SpatialComponent.cs" />
     <Compile Include="Objects\StaticModelComponent.cs" />

@@ -88,6 +88,13 @@ namespace XnaGame
             ge2.AddComponent(sc);  
             mc = new StaticModelComponent("models/Ship");
             ge2.AddComponent(mc);
+            BehaviorComponent bh = new BehaviorComponent();
+            ge2.AddComponent(bh);
+            TimedGrowComponent tgc = new TimedGrowComponent(0.025f, 0.01f, 1);
+            bh.AddBehavior(tgc);
+            RotateBehavior rc = new RotateBehavior(45);
+            bh.AddBehavior(rc);
+
 
             //Creating a sprite using a fish
             GameEntity ge3 = new GameEntity("fish");

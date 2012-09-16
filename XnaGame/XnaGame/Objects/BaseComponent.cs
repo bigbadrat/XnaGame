@@ -13,7 +13,7 @@ namespace XnaGame
 
         public BaseComponent()
         {
-            _link = new IntrusiveListItem<Derived>();
+            _link = new IntrusiveListItem<Derived>();            
         }
 
         public IGameEntity Owner

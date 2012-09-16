@@ -7,19 +7,45 @@ using Microsoft.Xna.Framework;
 namespace XnaGame
 {
     /// <summary>
+    /// Base class for behaviors that are dependant of the owner
+    /// having a spatial component (that is, they have a location 
+    /// in space)
+    /// </summary>
+    public class SpatialBehavior : IBehavior
+    {
+        protected SpatialComponent _spatial;
+        protected bool _completed;
+
+        public SpatialBehavior()
+        {
+            _completed = false;
+        }
+
+        public void AttachTo(IGameEntity entity)
+        {
+            _spatial = (SpatialComponent)entity.GetComponent("Spatial");
+            OnAttach();
+        }
+
+        public bool IsComplete() { return _completed; }
+
+        virtual public void Update(GameTime gameTime) { }
+
+        virtual public void OnAttach()  {  }
+    }
+
+    /// <summary>
     /// Behavior to move an entity through space with a constant velocity.
     /// Never completes.
     /// </summary>
-    public class ConstantLinearMoveComponent : BehaviorBase
-    {
-        public SpatialEntity pOwner;
+    public class ConstantLinearMoveBehavior: SpatialBehavior
+    {        
         public float Speed;
         public Vector3 Direction;
 
-        public ConstantLinearMoveComponent(SpatialEntity o, Vector3 v)
-            : base(o)
-        {
-            pOwner = o;
+        public ConstantLinearMoveBehavior(Vector3 v)
+            : base()
+        {            
             Speed = v.Length();
             v.Normalize();
             Direction = v;
@@ -29,10 +55,9 @@ namespace XnaGame
         {
             if (Speed == 0)
                 return;
-            Vector3 newpos = (float)gametime.ElapsedGameTime.TotalSeconds * Speed * Direction + pOwner.Position;
-            pOwner.Position = newpos;
+            Vector3 newpos = (float)gametime.ElapsedGameTime.TotalSeconds * Speed * Direction + _spatial.Position;
+            _spatial.Position = newpos;
         }
-
     }
 
     /// <summary>
@@ -40,18 +65,16 @@ namespace XnaGame
     /// All time there's some negative accel trying to move you back and make 
     /// you still .
     /// </summary>
-    public class InertialMoveComponent : BehaviorBase
+    public class InertialMoveBehavior : SpatialBehavior
     {
-        public SpatialEntity pOwner;
         public float Speed;
         public float MaxSpeed;
         public float Accel;
         public Vector3 Direction;
 
-        public InertialMoveComponent(SpatialEntity o, Vector3 v, float a, float mv)
-            : base(o)
+        public InertialMoveBehavior(Vector3 v, float a, float mv)
+            : base()
         {
-            pOwner = o;
             MaxSpeed = mv;
             Accel = a;
 
@@ -82,8 +105,8 @@ namespace XnaGame
             else
             {
                 Speed = MathHelper.Clamp(Speed, 0, MaxSpeed);
-                Vector3 newpos = delta * Speed * Direction + pOwner.Position;
-                pOwner.Position = newpos;
+                Vector3 newpos = delta * Speed * Direction + _spatial.Position;
+                _spatial.Position = newpos;
             }
         }
 
@@ -103,30 +126,19 @@ namespace XnaGame
     /// Behavior that moves an entity at a linear speed until it reaches an
     /// objective. When the objective is reached, an event is raised.
     /// </summary>
-    public class LinearMoveToComponent : BehaviorBase
+    public class LinearMoveToBehavior : SpatialBehavior
     {
-        public SpatialEntity pOwner;
-
         float elapsed;
         float timeTarget;
         Vector3 origPosition;
         Vector3 targetPosition;
-        bool arrived;
 
-        public LinearMoveToComponent(SpatialEntity o, Vector3 t, float time)
-            : base(o)
+        public LinearMoveToBehavior(Vector3 t, float time)
+            : base()
         {
-            pOwner = o;
             elapsed = 0;
-            origPosition = pOwner.Position;
             targetPosition = t;
             timeTarget = time;
-            arrived = false;
-        }
-
-        protected override void RegisterBehaviorEvents(GameEntity b)
-        {
-            //b.RegisterEvent(AbyssEventType.EVT_GoalReached);
         }
 
         public override void Update(GameTime gametime)
@@ -141,15 +153,19 @@ namespace XnaGame
             newpos.X = MathHelper.Lerp(origPosition.X, targetPosition.X, delta);
             newpos.Y = MathHelper.Lerp(origPosition.Y, targetPosition.Y, delta);
             newpos.Z = MathHelper.Lerp(origPosition.Z, targetPosition.Z, delta);
-            pOwner.Position = newpos;
+            _spatial.Position = newpos;
             if (newpos == targetPosition)
             {
                 //pOwner.RaiseLocalEvent(AbyssEventType.EVT_GoalReached, new EventArgs());
-                arrived = true;
+                _completed = true;
             }
         }
 
-        public override bool IsComplete() { return arrived; }
+        public override void OnAttach()
+        {
+            origPosition = _spatial.Position;
+        }
+
     }
 
     
@@ -157,26 +173,24 @@ namespace XnaGame
     /// Very simple behavior to make something rotate on its own Z axis
     /// at a given angular speed.
     /// </summary>
-    public class RotateComponent : BehaviorBase
+    public class RotateBehavior : SpatialBehavior
     {
-        public SpatialEntity pOwner;
         public float RotSpeed;
 
-        public RotateComponent(SpatialEntity o, float rotSpeed)
-            : base(o)
+        public RotateBehavior(float rotSpeed)
+            : base()
         {
-            pOwner = o;
             RotSpeed = MathHelper.ToRadians(rotSpeed);
         }
 
         public override void Update(GameTime gametime)
         {
-            Vector3 newrot = pOwner.Rotation + new Vector3(RotSpeed * (float)gametime.ElapsedGameTime.TotalSeconds, 0, 0);
+            Vector3 newrot = _spatial.Rotation + new Vector3(RotSpeed * (float)gametime.ElapsedGameTime.TotalSeconds, 0, 0);
             if (newrot.X > 360)
                 newrot.X -= 360;
             else if (newrot.X < -360)
                 newrot.X += 360;
-            pOwner.Rotation = newrot;
+            _spatial.Rotation = newrot;
         }
 
     }
@@ -184,24 +198,23 @@ namespace XnaGame
     /// <summary>
     /// Behavior to make something rotate around a point
     /// at a given angular speed using a fixed radius.
+    /// TODO: FIX THIS!!! THIS IS BROKEN!
     /// </summary>
-    public class RotateAroundComponent : BehaviorBase
+    public class RotateAroundBehavior : SpatialBehavior
     {
-        public SpatialEntity pOwner;
         public float RotSpeed;
         public float RotRadius;
 
-        public RotateAroundComponent(SpatialEntity o, float rotSpeed, float rotRadius)
-            : base(o)
+        public RotateAroundBehavior(float rotSpeed, float rotRadius)
+            : base()
         {
-            pOwner = o;
             RotSpeed = MathHelper.ToRadians(rotSpeed);
             RotRadius = rotRadius;
         }
 
         public override void Update(GameTime gametime)
         {
-            Vector3 newrot = pOwner.Rotation + new Vector3(RotSpeed * (float)gametime.ElapsedGameTime.TotalSeconds, 0, 0);
+            Vector3 newrot = _spatial.Rotation + new Vector3(RotSpeed * (float)gametime.ElapsedGameTime.TotalSeconds, 0, 0);
             if (newrot.X > 360)
                 newrot.X -= 360;
             else if (newrot.X < -360)
@@ -211,10 +224,8 @@ namespace XnaGame
 
     }
 
-    public class TimedGrowComponent : BehaviorBase
+    public class TimedGrowComponent : SpatialBehavior
     {
-        public SpatialEntity pOwner;
-
         float m_fTargetBigScale;
         float m_fTargetSmallScale;
         float m_fCurrentScale;
@@ -222,21 +233,15 @@ namespace XnaGame
         float m_fCurrentTime;
         bool m_bFlag;
 
-        public TimedGrowComponent(SpatialEntity o, float targetSmallScale, float targetBigScale, float targetFreq)
-            : base(o)
+        public TimedGrowComponent(float targetSmallScale, float targetBigScale, float targetFreq)
+            : base()
         {
             m_fCurrentTime = 0.0f;
             m_fTargetFreq = targetFreq;
             m_fCurrentScale = 1.0f;
             m_fTargetSmallScale = targetSmallScale;
             m_fTargetBigScale = targetBigScale;
-            pOwner = o;
             m_bFlag = true;
-        }
-
-        protected override void RegisterBehaviorEvents(GameEntity b)
-        {
-            //b.RegisterEvent(AbyssEventType.EVT_Signal);
         }
 
         public override void Update(GameTime gametime)
@@ -249,7 +254,7 @@ namespace XnaGame
             else
                 m_fCurrentScale = MathHelper.Lerp(m_fTargetBigScale, m_fTargetSmallScale, delta);
 
-            pOwner.Scale = new Vector3(m_fCurrentScale);
+            _spatial.Scale = new Vector3(m_fCurrentScale);
 
             if (m_fCurrentTime >= m_fTargetFreq)
             {

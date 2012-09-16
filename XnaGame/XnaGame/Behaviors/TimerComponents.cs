@@ -9,26 +9,21 @@ namespace XnaGame
     /// <summary>
     /// Simple behavior to get a signal after x time
     /// </summary>
-    public class TimerBehavior : BehaviorBase
-    {
-        public GameEntity pOwner;
+    public class TimerBehavior : BaseComponent<TimerBehavior>, IEntityComponent
+    {        
         float m_fElapsed;
         float m_fTimeTarget;
 
-        public TimerBehavior(GameEntity o, float time)
-            : base(o)
+        public TimerBehavior(float time)
+            : base()
         {
-            pOwner = o;
             m_fElapsed = 0;
             m_fTimeTarget = time;
         }
 
-        protected override void RegisterBehaviorEvents(GameEntity b)
-        {
-            //b.RegisterEvent(AbyssEventType.EVT_Timer);
-        }
+        public string Name { get { return "Timer"; } }
 
-        public override void Update(GameTime gametime)
+        public void Update(GameTime gametime)
         {
             m_fElapsed += (float)gametime.ElapsedGameTime.TotalSeconds;
             if (m_fElapsed >= m_fTimeTarget)
@@ -45,21 +40,19 @@ namespace XnaGame
     /// to write the proper event descriptor. Also contains a built-in 
     /// way to loop the function call.
     /// </summary>
-    public class DelayedCallCoponent : BehaviorBase
+    public class DelayedCallCoponent : BaseComponent<TimerBehavior>, IEntityComponent
     {
         public delegate void DelayedFunction();
 
-        public GameEntity pOwner;
-        float m_fElapsed;
-        float m_fTimeTarget;
         DelayedFunction m_pFunction;
+        float m_fElapsed;
+        float m_fTimeTarget;        
         bool m_bLooping;
         bool m_bCompleted;
 
-        public DelayedCallCoponent(GameEntity o, float time, bool loop, DelayedFunction f)
-            : base(o)
+        public DelayedCallCoponent(float time, bool loop, DelayedFunction f)
+            : base()
         {
-            pOwner = o;
             m_fElapsed = 0;
             m_fTimeTarget = time;
             m_bLooping = loop;
@@ -67,7 +60,9 @@ namespace XnaGame
             m_bCompleted = false;
         }
 
-        public override void Update(GameTime gametime)
+        public string Name { get { return "DelayedCall"; } }
+
+        public void Update(GameTime gametime)
         {
             m_fElapsed += (float)gametime.ElapsedGameTime.TotalSeconds;
             if (m_fElapsed >= m_fTimeTarget)
@@ -79,6 +74,5 @@ namespace XnaGame
             }
         }
 
-        public override bool IsComplete() { return m_bCompleted; }
     }
 }

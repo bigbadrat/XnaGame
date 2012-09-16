@@ -83,6 +83,13 @@ namespace XnaGame
             {
                 e.Update(gameTime);
             }
+
+            BehaviorComponent bc;
+            bc = IntrusiveListItem<BehaviorComponent>.Head();
+            for (; bc != null; bc = (BehaviorComponent)bc.Next)
+            {
+                bc.Update(gameTime);
+            }
         }
 
         public override void Draw(GameTime gameTime)

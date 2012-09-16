@@ -84,22 +84,7 @@ namespace XnaGame
         /// </summary>
         virtual public void Destroy() { }
 
-        #region Behavior functions
-        /// <summary>
-        /// Behavior event management
-        /// </summary>
-        protected List<IBehavior> _behaviors = new List<IBehavior>();
 
-        public void AddBehavior(IBehavior behav)
-        {
-            _behaviors.Add(behav);
-        }
-
-        public virtual void RemoveAllBehaviors()
-        {
-            _behaviors.Clear();
-        }
-        #endregion
 
 
         public void ReceiveMessage(Message msg)
@@ -195,114 +180,6 @@ namespace XnaGame
 
 
     }
-
-    public class UpdatableEntity : GameEntity, IUpdatableEntity
-    {
-
-        public virtual void Update(GameTime gameTime)
-        {
-            //Update each behavior
-            foreach (IBehavior beh in _behaviors)
-            {
-                beh.Update(gameTime);
-            }
-
-            //Remove completed behavior
-            for (int i = 0; i < _behaviors.Count(); )
-            {
-                if (_behaviors[i].IsComplete())
-                {
-                    _behaviors.RemoveAt(i);
-                }
-                else
-                {
-                    ++i;
-                }
-            }
-
-        }
-
-    }
-
-    /// <summary>
-    /// Basic features for an entity to have a position in space.
-    /// </summary>    
-    public class SpatialEntity : GameEntity, ISpatialEntity
-    {
-        /// <summary>
-        /// Position of the entity. Note that when setting the position, the 
-        /// world matrix will be auto updated when requested.
-        /// </summary>
-        public Vector3 Position
-        {
-            get { return pos; }
-            set
-            {
-                if (pos == value) return; //Only move if really moved
-                pos = value;
-                _matrixIsDirty = true;                 
-            }
-        }
-        Vector3 pos = new Vector3(0, 0, 0);
-
-        /// <summary>
-        /// Rotation of the entity in Euler angles. Note that when setting the
-        /// rotation, the world matrix will be auto updated when requested.
-        /// </summary>
-        public Vector3 Rotation
-        {
-            get { return rotation; }
-            set { rotation = value; _matrixIsDirty = true; }
-        }
-        Vector3 rotation = new Vector3(0, 0, 0);
-
-        public Vector3 Scale
-        { 
-            get { return scale;}
-            set { scale = value; _matrixIsDirty = true;}
-        }
-        Vector3 scale = Vector3.One;
-
-        /// <summary>
-        /// World matrix used to correctly position the entity in the world. Note
-        /// that if the matrix is outdated, it will be recalculated before being
-        /// returned
-        /// </summary>
-        public Matrix WorldMatrix
-        {
-            get { if (_matrixIsDirty) UpdateWorldMatrix(); return worldMatrix; }
-        }
-        Matrix worldMatrix;
-
-        //flag to mark the need to update the matrix. Initialized 
-        private bool _matrixIsDirty = true;
-
-        public Vector3 Direction{ get; set; }
-        
-        /// <summary>
-        /// Method to update the world matrix. This should be auto-called when needed.
-        /// </summary>
-        private void UpdateWorldMatrix()
-        {
-            worldMatrix = Matrix.CreateScale(Scale) * Matrix.CreateFromYawPitchRoll(Rotation.X,Rotation.Y,Rotation.Z) * Matrix.CreateTranslation(Position); 
-            _matrixIsDirty = false; 
-        }
-
-        /// <summary>
-        /// Constructors
-        /// </summary>
-        /// <param name="name"> Name of the entity</param>
-        /// <param name="pos"> Position of the entity</param>
-        public SpatialEntity(string name, Vector3 pos)
-            : base(name)
-        {
-            Position = pos;            
-        }
-
-        public SpatialEntity(): base() { }
-
-    }
-
 
 }
  
