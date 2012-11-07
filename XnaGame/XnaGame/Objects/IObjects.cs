@@ -109,7 +109,7 @@ namespace XnaGame
     /// <summary>
     /// The components ar the different pieces of functionality that put together
     /// form an entity. Each component knows only of its own resposability and at
-    /// most knows of other components.
+    /// most knows of other components he requires to operate.
     /// The components are responsible of processing messages that are relevant 
     /// for their responsibility.
     /// </summary>

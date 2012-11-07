@@ -10,7 +10,7 @@ namespace XnaGame
 {
 
   
-    public class ObjectManager: DrawableGameComponent, IObjectManager
+    public class GameEntityManager: DrawableGameComponent, IObjectManager
     {
         #region Fields
         List<GameEntity> _entity_list = new List<GameEntity>();
@@ -24,7 +24,7 @@ namespace XnaGame
 
 
         #region Constructors
-        public ObjectManager(Game game)
+        public GameEntityManager(Game game)
             : base(game)
         {
             game.Services.AddService(typeof(IObjectManager), this);

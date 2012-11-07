@@ -32,7 +32,7 @@ namespace XnaGame
             cam.OrbitUpways(80);
             Components.Add(cam);
             Components.Add(new FrameRateCounter(this));
-            Components.Add(new ObjectManager(this));
+            Components.Add(new GameEntityManager(this));
             Components.Add(new SpriteManager(this));
             Components.Add(new Renderer(this));
             Components.Add(new InputManager(this));
