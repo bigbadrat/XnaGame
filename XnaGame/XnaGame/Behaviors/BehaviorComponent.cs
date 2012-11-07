@@ -12,6 +12,13 @@ namespace XnaGame
         void AttachTo(IGameEntity entity);
     }
 
+    /// <summary>
+    /// The BehaviorComponent is a component thought to be composed
+    /// of some other smaller objects that model a specific behavior
+    /// for the owner of this component. There's a category of behaviors
+    /// based on movement (and such, they require a SpatialComponent), and 
+    /// other's to model timers.
+    /// </summary>
     public class BehaviorComponent : BaseComponent<BehaviorComponent>, IEntityComponent
     {
         List<IBehavior> _behaviors ;

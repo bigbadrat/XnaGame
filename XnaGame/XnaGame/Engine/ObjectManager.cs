@@ -135,6 +135,14 @@ namespace XnaGame
             }
             NewlyCreatedEntityList.Clear();
         }
+
+        public void BroadcastMessage(Message msg)
+        {
+            foreach (GameEntity e in NewlyCreatedEntityList)
+            {
+                e.ReceiveMessage(msg);
+            }
+        }
     }
 
 }
