@@ -13,6 +13,13 @@ namespace XnaGame
     public class GameEntityManager: DrawableGameComponent, IObjectManager
     {
         #region Fields
+        /// <summary>
+        /// Lists to contain the entities and to quickly access them. They can be quick-searched
+        /// by id or by name using the specific dictionaries.
+        /// Also, separated lists are used to keep the entities that will enter the game loop
+        /// or will exit. That way is safer to iterate the events and safely "remove" any 
+        /// entity without breaking the iterators.
+        /// </summary>
         List<GameEntity> _entity_list = new List<GameEntity>();
         Dictionary<int, GameEntity> _entity_id_index = new Dictionary<int, GameEntity>();
         Dictionary<string, GameEntity> _entity_name_index = new Dictionary<string, GameEntity>();
@@ -118,9 +125,9 @@ namespace XnaGame
         {
             foreach (GameEntity e in EntityToBeRemovedList)
             {
-                _entity_list.Remove(e);
                 _entity_id_index.Remove(e.Id);
                 _entity_name_index.Remove(e.Name);
+                _entity_list.Remove(e);
             }
         }
         

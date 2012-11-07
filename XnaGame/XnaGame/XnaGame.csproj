@@ -107,12 +107,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Asset.cs" />
     <Compile Include="Behaviors\BehaviorComponent.cs" />
     <Compile Include="Behaviors\SimpleMovementBehaviors.cs" />
     <Compile Include="Behaviors\OscillatingMovementBehaviors.cs" />
     <Compile Include="Behaviors\TouchableComponent.cs" />
     <Compile Include="Behaviors\TimerBehaviors.cs" />
-    <Compile Include="Engine\Assets.cs" />
+    <Compile Include="Engine\AssetManager.cs" />
     <Compile Include="Engine\Input.cs" />
     <Compile Include="Engine\InputState.cs" />
     <Compile Include="Engine\IntrusiveList.cs" />
