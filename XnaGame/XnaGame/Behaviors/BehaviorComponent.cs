@@ -19,7 +19,7 @@ namespace XnaGame
     /// based on movement (and such, they require a SpatialComponent), and 
     /// other's to model timers.
     /// </summary>
-    public class BehaviorComponent : BaseComponent<BehaviorComponent>, IEntityComponent
+    public class BehaviorComponent : Component<BehaviorComponent>, IEntityComponent
     {
         List<IBehavior> _behaviors ;
 

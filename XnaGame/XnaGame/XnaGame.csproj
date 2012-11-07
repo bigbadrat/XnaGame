@@ -122,9 +122,9 @@
     <Compile Include="Objects2D\Spatial2DComponent.cs" />
     <Compile Include="Objects2D\SpriteComponent.cs" />
     <Compile Include="Engine\SpriteManager.cs" />
-    <Compile Include="Objects\BaseComponent.cs" />
+    <Compile Include="Objects\Component.cs" />
     <Compile Include="Objects\IGameEntity.cs" />
-    <Compile Include="Objects\SceneEntity.cs" />
+    <Compile Include="Objects\GameEntity.cs" />
     <Compile Include="Objects\SpatialComponent.cs" />
     <Compile Include="Objects\StaticModelComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

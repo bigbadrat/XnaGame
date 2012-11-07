@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace XnaGame
 {
-    class StaticModelComponent: BaseComponent<StaticModelComponent>, IEntityComponent
+    class StaticModelComponent: Component<StaticModelComponent>, IEntityComponent
     {
 
         public Model Model3D { get; set; }

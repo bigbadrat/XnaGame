@@ -41,7 +41,7 @@ namespace XnaGame
         }
     }
 
-    public class SpatialComponent: BaseComponent<SpatialComponent>, IEntityComponent
+    public class SpatialComponent: Component<SpatialComponent>, IEntityComponent
     {
         Vector3 _position;
         Vector3 _rotation;

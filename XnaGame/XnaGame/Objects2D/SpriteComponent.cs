@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace XnaGame
 {
-    public class SpriteComponent : BaseComponent<SpriteComponent>, IEntityComponent
+    public class SpriteComponent : Component<SpriteComponent>, IEntityComponent
     {
         Texture2D _tex;
         Color _color;

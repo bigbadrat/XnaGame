@@ -5,13 +5,13 @@ using System.Text;
 
 namespace XnaGame
 {
-    public class BaseComponent<Derived> 
+    public class Component<Derived> 
         where Derived: IEntityComponent
     {
         IGameEntity _owner;
         public IntrusiveListItem<Derived> _link;
 
-        public BaseComponent()
+        public Component()
         {
             _link = new IntrusiveListItem<Derived>();            
         }

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace XnaGame
 {
-    public class SpriteGridSheetComponent : BaseComponent<SpriteGridSheetComponent>, IEntityComponent
+    public class SpriteGridSheetComponent : Component<SpriteGridSheetComponent>, IEntityComponent
     {
         Texture2D _tex;
         Color _color;

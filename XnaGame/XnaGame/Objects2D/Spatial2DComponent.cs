@@ -41,7 +41,7 @@ namespace XnaGame
         }
     }
 
-    public class Spatial2DComponent : BaseComponent<Spatial2DComponent>, IEntityComponent
+    public class Spatial2DComponent : Component<Spatial2DComponent>, IEntityComponent
     {
         Vector2 _pos;
         float _z;

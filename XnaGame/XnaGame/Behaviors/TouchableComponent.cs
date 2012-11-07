@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace XnaGame
 {
-    public class TouchableComponent : BaseComponent<TouchableComponent>, IEntityComponent
+    public class TouchableComponent : Component<TouchableComponent>, IEntityComponent
     {
         SpatialComponent _spatial;
         BoundingSphere _volume;
