@@ -115,6 +115,7 @@
     <Compile Include="Engine\Assets.cs" />
     <Compile Include="Engine\Input.cs" />
     <Compile Include="Engine\InputState.cs" />
+    <Compile Include="Engine\IntrusiveList.cs" />
     <Compile Include="Engine\IServices.cs" />
     <Compile Include="Engine\GameEntityManager.cs" />
     <Compile Include="Objects2D\SpriteGridSheetComponent.cs" />
